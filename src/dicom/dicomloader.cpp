@@ -6,9 +6,9 @@ DicomLoader::DicomLoader()
     m_reader = vtkSmartPointer<vtkDICOMReader>::New();
 }
 
-bool DicomLoader::loadDirectory(const QString &path)
+bool DicomLoader::loadDirectory(const char *path)
 {
-    m_dir->SetDirectoryName(path.toStdString().c_str());
+    m_dir->SetDirectoryName(path);
     m_dir->Update();
     if (m_dir->GetNumberOfSeries() == 0) {
         std::cerr << "No dicom series found in the directory ";

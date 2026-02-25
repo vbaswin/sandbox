@@ -11,9 +11,6 @@ Viewer3DWidget::Viewer3DWidget(Viewer3DViewModel *viewModel, QWidget *parent)
     setupVtk();
 
     connect(m_viewModel, &Viewer3DViewModel::volumeReady, this, &Viewer3DWidget::onVolumeReady);
-    connect(m_viewModel, &Viewer3DViewModel::requestRender, this, [this]() {
-        m_renderWindow->Render();
-    });
 }
 
 void Viewer3DWidget::setupUI()

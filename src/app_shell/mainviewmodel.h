@@ -12,7 +12,7 @@ public:
     ~MainViewModel() override;
 
     Viewer3DViewModel *getViewer3DViewModel() const;
-    void executeInitialAppLoad(const QString &path);
+    void executeInitialAppLoad(const char *path);
 
 private:
     DicomLoader *m_dicomLoader;

@@ -10,7 +10,7 @@ class DicomLoader
 {
 public:
     DicomLoader();
-    bool loadDirectory(const QString &path);
+    bool loadDirectory(const char *);
     vtkSmartPointer<vtkImageData> GetOutputData() const;
     void GetScalarRange(double range[2]) const;
 

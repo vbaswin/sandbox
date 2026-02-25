@@ -13,7 +13,6 @@ public:
 
 signals:
     void volumeReady();
-    void requestRender();
 
 private:
     VolumePipeline m_pipeline;

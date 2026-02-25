@@ -18,7 +18,7 @@ Viewer3DViewModel *MainViewModel::getViewer3DViewModel() const
     return m_viewer3DViewModel;
 }
 
-void MainViewModel::executeInitialAppLoad(const QString &path)
+void MainViewModel::executeInitialAppLoad(const char *path)
 {
     if (m_dicomLoader->loadDirectory(path)) {
         double range[2];
