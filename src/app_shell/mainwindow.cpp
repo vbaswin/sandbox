@@ -11,6 +11,7 @@ MainWindow::MainWindow(MainViewModel *viewModel, QWidget *parent)
 {
     this->resize(1920, 1080);
     setupUI();
+    // QObject::connect(m_slider, &QSlider::valueChanged, );
 }
 
 void MainWindow::setupUI()
@@ -29,9 +30,9 @@ void MainWindow::setupUI()
     mainLayout->addWidget(rightControlPanel);
 
     QLabel *windowLabel = new QLabel("Window size", rightControlPanel);
-    QSlider *slider = new QSlider(Qt::Horizontal, rightControlPanel);
+    m_slider = new QSlider(Qt::Horizontal, rightControlPanel);
     controlsLayout->addWidget(windowLabel);
-    controlsLayout->addWidget(slider);
-    slider->setMinimumWidth(150);
+    controlsLayout->addWidget(m_slider);
+    m_slider->setMinimumWidth(150);
     controlsLayout->addStretch();
 }

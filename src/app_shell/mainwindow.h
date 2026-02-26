@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QSlider>
+
 #include "mainviewmodel.h"
 #include "viewer_3d/viewer3dwidget.h"
 
@@ -14,5 +16,6 @@ private:
     MainViewModel *m_viewModel;
     Viewer3DWidget *m_viewer3DWidget;
 
+    QSlider *m_slider = nullptr;
     void setupUI();
 };

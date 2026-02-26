@@ -14,6 +14,9 @@ public:
 signals:
     void volumeReady();
 
+    // private slots:
+    //     void onSliderChanged(int value);
+
 private:
     VolumePipeline m_pipeline;
 };

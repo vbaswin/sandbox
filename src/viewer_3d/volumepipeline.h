@@ -21,5 +21,8 @@ private:
     vtkSmartPointer<vtkVolumeProperty> m_prop;
     vtkSmartPointer<vtkVolume> m_volume;
     void setupTransferFunctions(double range[2]);
+    void setRangeStart(int range);
+
+    int m_rangeStart = 0;
 };
 
