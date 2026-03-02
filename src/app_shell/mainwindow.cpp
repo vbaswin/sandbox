@@ -35,6 +35,9 @@ void MainWindow::setupUI()
 
     QLabel *windowLabel = new QLabel("Window size", rightControlPanel);
     m_slider = new QSlider(Qt::Horizontal, rightControlPanel);
+    // m_slider->setMinimum(0);
+    m_slider->setMinimum(-1000);
+    m_slider->setMaximum(1000);
     controlsLayout->addWidget(windowLabel);
     controlsLayout->addWidget(m_slider);
     m_slider->setMinimumWidth(150);

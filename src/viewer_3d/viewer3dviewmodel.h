@@ -15,11 +15,9 @@ public:
 
 signals:
     void volumeReady();
+    void reRender();
 public slots:
     void setRangeStart(int val);
-
-    // private slots:
-    //     void onSliderChanged(int value);
 
 private:
     std::unique_ptr<VolumePipeline> m_pipeline;

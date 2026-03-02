@@ -1,7 +1,8 @@
 #include "volumepipeline.h"
 #include <QDebug>
 
-VolumePipeline::VolumePipeline()
+VolumePipeline::VolumePipeline(QObject *parent)
+    : QObject(parent)
 {
     m_mapper = vtkSmartPointer<vtkGPUVolumeRayCastMapper>::New();
     m_mapper->AutoAdjustSampleDistancesOn();
@@ -29,8 +30,8 @@ void VolumePipeline::SetInputData(vtkSmartPointer<vtkImageData> imageData,
 void VolumePipeline::setRangeStart(int start)
 {
     m_rangeStart = start;
-    // setupTransferFunctions();
-    qDebug() << start;
+    setupTransferFunctions();
+    // qDebug() << start;
 }
 
 void VolumePipeline::setRange(std::pair<double, double> range)

@@ -17,6 +17,7 @@ void Viewer3DViewModel::loadVolumeData(vtkSmartPointer<vtkImageData> imageData,
 void Viewer3DViewModel::setRangeStart(int val)
 {
     m_pipeline->setRangeStart(val);
+    emit reRender();
 }
 
 vtkSmartPointer<vtkVolume> Viewer3DViewModel::getVolume() const

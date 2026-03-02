@@ -13,6 +13,7 @@ public:
     ~Viewer3DWidget() override = default;
 private slots:
     void onVolumeReady();
+    void reRender();
 
 private:
     Viewer3DViewModel *m_viewModel;

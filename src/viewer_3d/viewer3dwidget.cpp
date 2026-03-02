@@ -11,6 +11,7 @@ Viewer3DWidget::Viewer3DWidget(Viewer3DViewModel *viewModel, QWidget *parent)
     setupVtk();
 
     connect(m_viewModel, &Viewer3DViewModel::volumeReady, this, &Viewer3DWidget::onVolumeReady);
+    connect(m_viewModel, &Viewer3DViewModel::reRender, this, &Viewer3DWidget::reRender);
 }
 
 void Viewer3DWidget::setupUI()
@@ -30,6 +31,10 @@ void Viewer3DWidget::setupVtk()
     m_renderWindow->SetWindowName("openglraycastmapper");
 
     m_vtkWidget->SetRenderWindow(m_renderWindow);
+}
+void Viewer3DWidget::reRender()
+{
+    m_renderWindow->Render();
 }
 
 void Viewer3DWidget::onVolumeReady()

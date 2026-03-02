@@ -1,4 +1,5 @@
 #pragma once
+#include <QObject>
 #include "vtkColorTransferFunction.h"
 #include "vtkGPUVolumeRayCastMapper.h"
 #include "vtkImageData.h"
@@ -7,10 +8,12 @@
 #include "vtkVolume.h"
 #include "vtkVolumeProperty.h"
 
-class VolumePipeline
+class VolumePipeline : public QObject
 {
+    Q_OBJECT;
+
 public:
-    VolumePipeline();
+    explicit VolumePipeline(QObject *parent = nullptr);
     void SetInputData(vtkSmartPointer<vtkImageData> imageData,
                       std::pair<double, double> scalarRange);
     vtkSmartPointer<vtkVolume> GetVolume() const;
@@ -25,6 +28,8 @@ private:
     vtkSmartPointer<vtkVolume> m_volume;
     void setupTransferFunctions();
 
-    int m_rangeStart = 1000;
+    int m_rangeStart = -1000;
     std::pair<double, double> m_range;
+    // signals:
+    //     void reRender();
 };
