@@ -11,8 +11,11 @@ class VolumePipeline
 {
 public:
     VolumePipeline();
-    void SetInputData(vtkSmartPointer<vtkImageData> imageData, double scalarRange[2]);
+    void SetInputData(vtkSmartPointer<vtkImageData> imageData,
+                      std::pair<double, double> scalarRange);
     vtkSmartPointer<vtkVolume> GetVolume() const;
+    void setRange(std::pair<double, double>);
+    void setRangeStart(int range);
 
 private:
     vtkSmartPointer<vtkGPUVolumeRayCastMapper> m_mapper;
@@ -20,9 +23,8 @@ private:
     vtkSmartPointer<vtkColorTransferFunction> m_colorTransferFunction;
     vtkSmartPointer<vtkVolumeProperty> m_prop;
     vtkSmartPointer<vtkVolume> m_volume;
-    void setupTransferFunctions(double range[2]);
-    void setRangeStart(int range);
+    void setupTransferFunctions();
 
-    int m_rangeStart = 0;
+    int m_rangeStart = 1000;
+    std::pair<double, double> m_range;
 };
-

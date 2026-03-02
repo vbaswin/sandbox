@@ -14,6 +14,7 @@ public:
 
 private:
     MainViewModel *m_viewModel;
+    Viewer3DViewModel *m_viewer3DViewModel;
     Viewer3DWidget *m_viewer3DWidget;
 
     QSlider *m_slider = nullptr;

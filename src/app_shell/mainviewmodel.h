@@ -13,6 +13,8 @@ public:
 
     Viewer3DViewModel *getViewer3DViewModel() const;
     void executeInitialAppLoad(const char *path);
+public slots:
+    void sliderChanged(int val);
 
 private:
     DicomLoader *m_dicomLoader;

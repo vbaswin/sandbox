@@ -10,8 +10,12 @@ MainWindow::MainWindow(MainViewModel *viewModel, QWidget *parent)
     , m_viewModel(viewModel)
 {
     this->resize(1920, 1080);
+    m_viewer3DViewModel = m_viewModel->getViewer3DViewModel();
     setupUI();
-    // QObject::connect(m_slider, &QSlider::valueChanged, );
+    QObject::connect(m_slider,
+                     &QSlider::valueChanged,
+                     m_viewer3DViewModel,
+                     &Viewer3DViewModel::setRangeStart);
 }
 
 void MainWindow::setupUI()
@@ -21,7 +25,7 @@ void MainWindow::setupUI()
     this->setCentralWidget(mainWidget);
     QHBoxLayout *mainLayout = new QHBoxLayout(mainWidget);
 
-    m_viewer3DWidget = new Viewer3DWidget(m_viewModel->getViewer3DViewModel(), this);
+    m_viewer3DWidget = new Viewer3DWidget(m_viewer3DViewModel);
     mainLayout->addWidget(m_viewer3DWidget, 1);
 
     QWidget *rightControlPanel = new QWidget(mainWidget);

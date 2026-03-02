@@ -18,13 +18,20 @@ Viewer3DViewModel *MainViewModel::getViewer3DViewModel() const
     return m_viewer3DViewModel;
 }
 
+void MainViewModel::sliderChanged(int val)
+{
+    getViewer3DViewModel();
+    m_viewer3DViewModel->getPipeline()->setRangeStart(val);
+}
+
 void MainViewModel::executeInitialAppLoad(const char *path)
 {
     if (m_dicomLoader->loadDirectory(path)) {
         double range[2];
         m_dicomLoader->GetScalarRange(range);
+        std::pair<double, double> tmp_range{range[0], range[1]};
         qDebug() << "Dicom loaded successfully. Range: " << range[0] << " to " << range[1];
 
-        m_viewer3DViewModel->loadVolumeData(m_dicomLoader->GetOutputData(), range);
+        m_viewer3DViewModel->loadVolumeData(m_dicomLoader->GetOutputData(), tmp_range);
     }
 }
