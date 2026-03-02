@@ -28,7 +28,7 @@ private:
     vtkSmartPointer<vtkVolume> m_volume;
     void setupTransferFunctions();
 
-    int m_rangeStart = -1000;
+    int m_rangeStart = 0;
     std::pair<double, double> m_range;
     // signals:
     //     void reRender();

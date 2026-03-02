@@ -34,12 +34,14 @@ void MainWindow::setupUI()
     mainLayout->addWidget(rightControlPanel);
 
     QLabel *windowLabel = new QLabel("Window size", rightControlPanel);
-    m_slider = new QSlider(Qt::Horizontal, rightControlPanel);
+    m_slider = new QSlider(Qt::Vertical, rightControlPanel);
     // m_slider->setMinimum(0);
-    m_slider->setMinimum(-1500);
-    m_slider->setMaximum(0);
+    m_slider->setMinimum(-1000);
+    m_slider->setMaximum(100);
     controlsLayout->addWidget(windowLabel);
     controlsLayout->addWidget(m_slider);
-    m_slider->setMinimumWidth(150);
+    // m_slider->setMinimumWidth(150);
+    m_slider->setMinimumHeight(700);
+    m_slider->setValue(100);
     controlsLayout->addStretch();
 }
