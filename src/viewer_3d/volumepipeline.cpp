@@ -31,7 +31,7 @@ void VolumePipeline::setRangeStart(int start)
 {
     m_rangeStart = start;
     setupTransferFunctions();
-    // qDebug() << start;
+    qDebug() << start;
 }
 
 void VolumePipeline::setRange(std::pair<double, double> range)
