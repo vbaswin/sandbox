@@ -8,6 +8,7 @@
 #include <QSplitter>
 #include <QToolBar>
 #include <QVBoxLayout>
+#include <QVTKOpenGLNativeWidget.h>
 
 // MainWindow::MainWindow(MainViewModel *viewModel, QWidget *parent)
 //     : QMainWindow(parent)
@@ -83,10 +84,10 @@ void MainWindow::setupViews()
     horSplitter->addWidget(verSplitter1);
     horSplitter->addWidget(verSplitter2);
 
-    QWidget *threeD = new QWidget(this);
-    QWidget *axial = new QWidget(this);
-    QWidget *coronal = new QWidget(this);
-    QWidget *sagittal = new QWidget(this);
+    threeD = new QVTKOpenGLNativeWidget(this);
+    axial = new QVTKOpenGLNativeWidget(this);
+    coronal = new QVTKOpenGLNativeWidget(this);
+    sagittal = new QVTKOpenGLNativeWidget(this);
 
     verSplitter1->addWidget(threeD);
     verSplitter1->addWidget(coronal);

@@ -2,6 +2,7 @@
 
 #include <QMainWindow>
 #include <QSlider>
+#include <QVTKOpenGLNativeWidget.h>
 // #include "MainViewModel.h"
 
 // #include "src/viewer_3d/inc/.h"
@@ -22,5 +23,13 @@ private:
     // Viewer3DViewModel *m_viewer3DViewModel;
     // Viewer3DWidget *m_viewer3DWidget;
 
-    QSlider *m_slider = nullptr;
+    QVTKOpenGLNativeWidget *threeD = nullptr;
+    QVTKOpenGLNativeWidget *coronal = nullptr;
+    QVTKOpenGLNativeWidget *axial = nullptr;
+    QVTKOpenGLNativeWidget *sagittal = nullptr;
+
+    vtkGeneric
+
+        QSlider *m_slider
+        = nullptr;
 };
