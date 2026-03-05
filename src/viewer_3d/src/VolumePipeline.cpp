@@ -1,5 +1,6 @@
 #include "volumepipeline.h"
 #include <QDebug>
+#include "src/viewer_3d/inc/Types.h"
 
 VolumePipeline::VolumePipeline(QObject *parent)
     : QObject(parent)
@@ -37,6 +38,7 @@ void VolumePipeline::SetInputData(vtkSmartPointer<vtkImageData> imageData,
                                   std::pair<double, double> scalarRange)
 {
     m_mapper->SetInputData(imageData);
+    setBlendMode(BlendMode::Composite);
     setRange(scalarRange);
     setupTransferFunctions();
 }
@@ -53,30 +55,27 @@ void VolumePipeline::setRange(std::pair<double, double> range)
     m_range = range;
 }
 
-struct TransferPoint
+void VolumePipeline::setBlendMode(BlendMode mode)
 {
-    double hu; // hounsfield units
-    double opacity;
-    double r, g, b;
-};
-
-std::vector<TransferPoint> preset = {{-100, 0.00, 205, 153, 46}, // fat
-                                     {-50, 0.2, 227, 211, 178},
-                                     {10, 0.21, 222, 142, 142}, // muscle/ blood/ soft tissue
-                                     {40, 0.4, 215, 109, 84},
-                                     {150, 0.41, 254, 210, 161}, // spongy bone/ cartilage
-                                     {300, 0.6, 219, 183, 127},
-                                     {700, 0.61, 251, 236, 206}, // dense cortical bone
-                                     {1500, 0.8, 167, 163, 152},
-                                     {2000, 0.81, 230, 230, 232}, // solid metal
-                                     {3000, 1.0, 111, 105, 107}};
+    switch (mode) {
+    case BlendMode::Composite:
+        m_mapper->SetBlendModeToComposite();
+        break;
+    case BlendMode::Additive:
+        m_mapper->SetBlendModeToAdditive();
+        break;
+    case BlendMode::MaximumIntensity:
+        m_mapper->SetBlendModeToMaximumIntensity();
+        break;
+    }
+}
 
 void VolumePipeline::setupTransferFunctions()
 {
     m_opacityPiecewiseFunction->RemoveAllPoints();
     m_colorTransferFunction->RemoveAllPoints();
 
-    for (const auto &point : preset) {
+    for (const auto &point : Module3D::preset) {
         double shiftedHU = point.hu + m_rangeStart;
 
         m_opacityPiecewiseFunction->AddPoint(shiftedHU, point.opacity);

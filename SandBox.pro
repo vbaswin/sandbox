@@ -23,15 +23,22 @@ SOURCES += src/dicom/DicomLoader.cpp
 # -----------------
 # Extracted Feature: 3D Viewer
 # -----------------
+
 HEADERS += \
-    src/viewer_3d/VolumePipeline.h \
-    src/viewer_3d/Viewer3DViewModel.h \
-    src/viewer_3d/Viewer3DWidget.h
+    src/viewer_3d/inc/IModel.h \
+    src/viewer_3d/inc/Types.h \
+    src/viewer_3d/inc/m3d_factory.h \
+
+HEADERS += \
+    src/viewer_3d/src/VolumePipeline.h \
+    src/viewer_3d/src/Viewer3DViewModel.h \
+    src/viewer_3d/src/Viewer3DWidget.h
 
 SOURCES += \
-    src/viewer_3d/VolumePipeline.cpp \
-    src/viewer_3d/Viewer3DViewModel.cpp \
-    src/viewer_3d/Viewer3DWidget.cpp
+    src/viewer_3d/src/VolumePipeline.cpp \
+    src/viewer_3d/src/Viewer3DViewModel.cpp \
+    src/viewer_3d/src/Viewer3DWidget.cpp \
+    src/viewer_3d/src/m3d_factory.cpp
 
 # -----------------
 # Extracted Feature: App Shell (Window & Integration)
@@ -44,3 +51,7 @@ SOURCES += \
     src/main.cpp \
     src/app_shell/MainViewModel.cpp \
     src/app_shell/MainWindow.cpp
+
+
+RESOURCES += \
+    resources/resources.qrc

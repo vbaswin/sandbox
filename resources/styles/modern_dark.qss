@@ -1,0 +1,33 @@
+QWidget {
+    background-color: #070F2B;
+}
+#medicalSlice {
+    background-color: #000000;
+}
+QToolBar {
+    background-color: #070F2B;
+    border: none;
+    padding: 5px;
+    spacing: 10px;
+
+}
+
+QToolButton {
+    color: #E0E0E0;
+    font-family: "JetBrainsMOno Nerd Font", "JetBrains Mono", monospace;
+    font-size: 14px;
+    font-weight: bold;
+
+    padding: 8px 16px;
+    border-radius: 4px;
+    background-color: transparent;
+}
+
+QToolButton:hover {
+    background-color: #3E3E42
+}
+
+QToolButton:checked {
+    background-color: #007ACC;
+    color: #FFFFFF;
+}

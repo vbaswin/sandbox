@@ -1,0 +1,7 @@
+<RCC>
+
+<qresource prefix="/">
+        <file>styles/modern_dark.qss</file>
+</qresource>
+
+</RCC>

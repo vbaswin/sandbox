@@ -1,5 +1,6 @@
 #pragma once
 #include <QObject>
+#include "src/viewer_3d/inc/IModel.h"
 #include "vtkColorTransferFunction.h"
 #include "vtkGPUVolumeRayCastMapper.h"
 #include "vtkImageData.h"
@@ -8,7 +9,7 @@
 #include "vtkVolume.h"
 #include "vtkVolumeProperty.h"
 
-class VolumePipeline : public QObject
+class VolumePipeline : public QObject, public IModel
 {
     Q_OBJECT;
 
@@ -18,6 +19,7 @@ public:
                       std::pair<double, double> scalarRange);
     vtkSmartPointer<vtkVolume> GetVolume() const;
     void setRange(std::pair<double, double>);
+    void setBlendMode(BlendMode mode);
     void setRangeStart(int range);
 
 private:

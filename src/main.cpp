@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QFile>
 #include <QSurfaceFormat>
 #include <QVTKOpenGLNativeWidget.h>
 #include "QVTKOpenGLWidget.h"
@@ -26,12 +27,21 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
 
     QApplication app(argc, argv);
+    QFile styleFile(":/styles/modern_dark.qss");
+    if (styleFile.open(QFile::ReadOnly)) {
+        QString styleSheet = QLatin1String(styleFile.readAll());
+        app.setStyleSheet(styleSheet);
+        styleFile.close();
+    } else {
+        qWarning() << "Failed to load stylesheet!";
+    }
 
-    MainViewModel viewModel;
-    MainWindow w(&viewModel);
+    // MainViewModel viewModel;
+    // MainWindow w(&viewModel);
+    MainWindow w;
 
     w.show();
-    viewModel.executeInitialAppLoad(Constants::DEFAULT_DICOM_DIR);
+    // viewModel.executeInitialAppLoad(Constants::DEFAULT_DICOM_DIR);
 
     return app.exec();
 }
