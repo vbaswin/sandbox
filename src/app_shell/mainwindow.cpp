@@ -11,11 +11,11 @@ MainWindow::MainWindow(MainViewModel *viewModel, QWidget *parent)
 {
     this->resize(1920, 1080);
     m_viewer3DViewModel = m_viewModel->getViewer3DViewModel();
-    setupUI();
-    QObject::connect(m_slider,
-                     &QSlider::valueChanged,
-                     m_viewer3DViewModel,
-                     &Viewer3DViewModel::setRangeStart);
+    // setupUI();
+    // QObject::connect(m_slider,
+    //                  &QSlider::valueChanged,
+    //                  m_viewer3DViewModel,
+    // &Viewer3DViewModel::setRangeStart);
 }
 
 void MainWindow::setupUI()
