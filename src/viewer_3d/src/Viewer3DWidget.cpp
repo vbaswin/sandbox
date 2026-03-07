@@ -3,9 +3,9 @@
 #include "vtkGenericOpenGLRenderWindow.h"
 #include "vtkRenderer.h"
 
-Viewer3DWidget::Viewer3DWidget(std::unique_ptr<Viewer3DViewModel> viewModel, QWidget *parent)
+Viewer3DWidget::Viewer3DWidget(std::shared_ptr<Viewer3DViewModel> viewModel, QWidget *parent)
     : QWidget(parent)
-    , m_viewModel(std::move(viewModel))
+    , m_viewModel(viewModel)
 {
     setupUI();
     setupVtk();

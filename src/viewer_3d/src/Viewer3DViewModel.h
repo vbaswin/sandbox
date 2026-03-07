@@ -8,7 +8,7 @@ class Viewer3DViewModel : public QObject, public Viewer3D::Interfaces::IViewer3D
 {
     Q_OBJECT
 public:
-    explicit Viewer3DViewModel(std::unique_ptr<VolumePipeline>, QObject *parent = nullptr);
+    explicit Viewer3DViewModel(std::shared_ptr<VolumePipeline>, QObject *parent = nullptr);
     void loadVolumeData(vtkSmartPointer<vtkImageData> imageData,
                         std::pair<double, double> scalarRange);
     vtkSmartPointer<vtkVolume> getVolume() const;
@@ -21,5 +21,5 @@ public slots:
     void setRangeStart(int val);
 
 private:
-    std::unique_ptr<VolumePipeline> m_pipeline;
+    std::shared_ptr<VolumePipeline> m_pipeline;
 };

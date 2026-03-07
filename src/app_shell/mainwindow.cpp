@@ -14,8 +14,8 @@
 // MainWindow::MainWindow(MainViewModel *viewModel, QWidget *parent)
 //     : QMainWindow(parent)
 //     , m_viewModel(viewModel)
-MainWindow::MainWindow(std::unique_ptr<Viewer3D::Interfaces::IViewer3D> viewer3D, QWidget *parent)
-    : m_viewer3D(std::move(viewer3D))
+MainWindow::MainWindow(std::shared_ptr<Viewer3D::Interfaces::IViewer3D> viewer3D, QWidget *parent)
+    : m_viewer3D(viewer3D)
 {
     this->resize(1920, 1080);
     // m_viewer3DViewModel = m_viewModel->getViewer3DViewModel();
@@ -91,19 +91,34 @@ void MainWindow::setupViews()
     coronal = new QVTKOpenGLNativeWidget(this);
     sagittal = new QVTKOpenGLNativeWidget(this);
 
-    verSplitter1->addWidget(m_viewer3D->asWidget());
+    QWidget *viewer = m_viewer3D->asWidget();
+    // verSplitter1->addWidget(m_viewer3D->asWidget());
+    verSplitter1->addWidget(viewer);
     verSplitter1->addWidget(coronal);
 
     verSplitter2->addWidget(sagittal);
     verSplitter2->addWidget(axial);
     this->setCentralWidget(horSplitter);
 
-    // m_viewer3D->setMinimumSize(100, 100);
-    axial->setMinimumSize(100, 100);
-    coronal->setMinimumSize(100, 100);
-    sagittal->setMinimumSize(100, 100);
+    horSplitter->setSizes({10000, 10000});
+    verSplitter1->setSizes({10000, 10000});
+    verSplitter2->setSizes({10000, 10000});
 
-    // threeD->setObjectName("medicalSlice");
+    // setstretchfactor(index(which child widget inside the splitter), factor);
+    horSplitter->setStretchFactor(0, 1);
+    horSplitter->setStretchFactor(1, 1);
+
+    verSplitter1->setStretchFactor(0, 1);
+    verSplitter1->setStretchFactor(1, 1);
+    verSplitter2->setStretchFactor(0, 1);
+    verSplitter2->setStretchFactor(1, 1);
+
+    // viewer->setMinimumSize(100, 100);
+    // axial->setMinimumSize(100, 100);
+    // coronal->setMinimumSize(100, 100);
+    // sagittal->setMinimumSize(100, 100);
+
+    viewer->setObjectName("medicalSlice");
     axial->setObjectName("medicalSlice");
     sagittal->setObjectName("medicalSlice");
     coronal->setObjectName("medicalSlice");

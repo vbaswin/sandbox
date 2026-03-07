@@ -14,14 +14,14 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 public:
     // explicit MainWindow(MainViewModel *viewModel, QWidget *parent = nullptr);
-    explicit MainWindow(std::unique_ptr<Viewer3D::Interfaces::IViewer3D> viewer,
+    explicit MainWindow(std::shared_ptr<Viewer3D::Interfaces::IViewer3D> viewer,
                         QWidget *parent = nullptr);
 
 private:
     void setupUI();
     void setupViews();
 
-    std::unique_ptr<Viewer3D::Interfaces::IViewer3D> m_viewer3D;
+    std::shared_ptr<Viewer3D::Interfaces::IViewer3D> m_viewer3D;
 
     QWidget *coronal = nullptr;
     QWidget *axial = nullptr;

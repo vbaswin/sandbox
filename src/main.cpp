@@ -40,15 +40,15 @@ int main(int argc, char *argv[])
     }
 
     // std::unique_ptr<Viewer3D::Interfaces::IViewer3DViewModel>
-    std::unique_ptr<VolumePipeline> volPipeline = std::make_unique<VolumePipeline>();
-    std::unique_ptr<Viewer3DViewModel> viewer3DVM = std::make_unique<Viewer3DViewModel>(volPipeline);
-    std::unique_ptr<MainViewModel> mainVM = std::make_unique<MainViewModel>(viewer3DVM);
-    mainVM->executeInitialAppLoad(Constants::DEFAULT_DICOM_DIR);
-    std::unique_ptr<Viewer3DWidget> viewer3DWidget = std::make_unique<Viewer3DWidget>(viewer3DVM);
+    std::shared_ptr<VolumePipeline> volPipeline = std::make_shared<VolumePipeline>();
+    std::shared_ptr<Viewer3DViewModel> viewer3DVM = std::make_shared<Viewer3DViewModel>(volPipeline);
+    std::shared_ptr<MainViewModel> mainVM = std::make_shared<MainViewModel>(viewer3DVM);
+    std::shared_ptr<Viewer3DWidget> viewer3DWidget = std::make_shared<Viewer3DWidget>(viewer3DVM);
 
-    MainWindow w(std::move(viewer3DWidget));
+    MainWindow w(viewer3DWidget);
 
     w.show();
+    mainVM->executeInitialAppLoad(Constants::DEFAULT_DICOM_DIR);
     // viewModel.executeInitialAppLoad(Constants::DEFAULT_DICOM_DIR);
 
     return app.exec();
