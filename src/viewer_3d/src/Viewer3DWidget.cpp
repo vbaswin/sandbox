@@ -11,10 +11,10 @@ Viewer3DWidget::Viewer3DWidget(std::shared_ptr<Viewer3DViewModel> viewModel, QWi
     setupVtk();
 
     connect(m_viewModel.get(),
-            &Viewer3DViewModel::volumeReady,
+            &Viewer3DViewModel::dataPropertyReady,
             this,
-            &Viewer3DWidget::onVolumeReady);
-    connect(m_viewModel.get(), &Viewer3DViewModel::reRender, this, &Viewer3DWidget::reRender);
+            &Viewer3DWidget::onDataPropertyReady);
+    // connect(m_viewModel.get(), &Viewer3DViewModel::reRender, this, &Viewer3DWidget::reRender);
 }
 
 void Viewer3DWidget::setupUI()
@@ -28,6 +28,12 @@ void Viewer3DWidget::setupUI()
 
 void Viewer3DWidget::setupVtk()
 {
+    m_mapper = vtkSmartPointer<vtkGPUVolumeRayCastMapper>::New();
+    // m_mapper->AutoAdjustSampleDistancesOn();
+    m_mapper->SetBlendModeToComposite();
+    // m_mapper->SetBlendModeToMaximumIntensity();
+    m_volume = vtkSmartPointer<vtkVolume>::New();
+    m_volume->SetMapper(m_mapper);
     m_renderer = vtkSmartPointer<vtkRenderer>::New();
     m_renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
     m_renderWindow->AddRenderer(m_renderer);
@@ -35,13 +41,30 @@ void Viewer3DWidget::setupVtk()
 
     m_vtkWidget->SetRenderWindow(m_renderWindow);
 }
-void Viewer3DWidget::reRender()
+
+void Viewer3DWidget::setBlendMode(BlendMode mode)
 {
-    m_renderWindow->Render();
+    switch (mode) {
+    case BlendMode::Composite:
+        m_mapper->SetBlendModeToComposite();
+        break;
+    case BlendMode::Additive:
+        m_mapper->SetBlendModeToAdditive();
+        break;
+    case BlendMode::MaximumIntensity:
+        m_mapper->SetBlendModeToMaximumIntensity();
+        break;
+    }
 }
 
-void Viewer3DWidget::onVolumeReady()
+void Viewer3DWidget::onDataPropertyReady()
 {
+    m_volume->SetProperty(m_viewModel->getVolumeProperty());
+    m_mapper->SetInputData(m_viewModel->getImageData());
+    // m_mapper->SetSampleDistance(0.000001);
+    setBlendMode(BlendMode::Composite);
+    // setBlendMode(BlendMode::MaximumIntensity);
+    // setBlendMode(BlendMode::Additive);
     m_renderer->RemoveAllViewProps();
     m_renderer->AddVolume(m_viewModel->getVolume());
     m_renderer->ResetCameraClippingRange();

@@ -17,21 +17,20 @@ public:
     explicit VolumePipeline(QObject *parent = nullptr);
     void SetInputData(vtkSmartPointer<vtkImageData> imageData,
                       std::pair<double, double> scalarRange);
-    vtkSmartPointer<vtkVolume> GetVolume() const;
     void setRange(std::pair<double, double>);
-    void setBlendMode(BlendMode mode);
     void setRangeStart(int range);
+    vtkVolumeProperty *getVolumeProperty();
+    vtkImageData *getImageData();
 
 private:
-    vtkSmartPointer<vtkGPUVolumeRayCastMapper> m_mapper;
     vtkSmartPointer<vtkPiecewiseFunction> m_opacityPiecewiseFunction;
     vtkSmartPointer<vtkColorTransferFunction> m_colorTransferFunction;
     vtkSmartPointer<vtkVolumeProperty> m_prop;
-    vtkSmartPointer<vtkVolume> m_volume;
     void setupTransferFunctions();
 
     int m_rangeStart = 0;
+    vtkSmartPointer<vtkImageData> m_imageData;
     std::pair<double, double> m_range;
-    // signals:
-    //     void reRender();
+signals:
+    void dataPropertyReady();
 };

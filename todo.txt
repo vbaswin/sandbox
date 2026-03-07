@@ -1,0 +1,4 @@
+[-] 2d viewers in other views
+[-] changing of the blend mode based on button clicked on all the views
+
+[-] global cursor to connect all the views, to update based on that

@@ -5,10 +5,6 @@
 VolumePipeline::VolumePipeline(QObject *parent)
     : QObject(parent)
 {
-    m_mapper = vtkSmartPointer<vtkGPUVolumeRayCastMapper>::New();
-    m_mapper->AutoAdjustSampleDistancesOn();
-    m_mapper->SetBlendModeToComposite();
-
     m_opacityPiecewiseFunction = vtkSmartPointer<vtkPiecewiseFunction>::New();
     m_colorTransferFunction = vtkSmartPointer<vtkColorTransferFunction>::New();
 
@@ -28,19 +24,16 @@ VolumePipeline::VolumePipeline(QObject *parent)
 
     // 5. Specular Power (How sharp/pinpoint the shiny reflection is. Higher = glossier/more metallic)
     m_prop->SetSpecularPower(70.0);
-
-    m_volume = vtkSmartPointer<vtkVolume>::New();
-    m_volume->SetMapper(m_mapper);
-    m_volume->SetProperty(m_prop);
+    // m_prop->SetInterpolationTypeToNearest();
 }
 
 void VolumePipeline::SetInputData(vtkSmartPointer<vtkImageData> imageData,
                                   std::pair<double, double> scalarRange)
 {
-    m_mapper->SetInputData(imageData);
-    setBlendMode(BlendMode::Composite);
+    m_imageData = imageData;
     setRange(scalarRange);
     setupTransferFunctions();
+    emit dataPropertyReady();
 }
 
 void VolumePipeline::setRangeStart(int start)
@@ -55,20 +48,6 @@ void VolumePipeline::setRange(std::pair<double, double> range)
     m_range = range;
 }
 
-void VolumePipeline::setBlendMode(BlendMode mode)
-{
-    switch (mode) {
-    case BlendMode::Composite:
-        m_mapper->SetBlendModeToComposite();
-        break;
-    case BlendMode::Additive:
-        m_mapper->SetBlendModeToAdditive();
-        break;
-    case BlendMode::MaximumIntensity:
-        m_mapper->SetBlendModeToMaximumIntensity();
-        break;
-    }
-}
 
 void VolumePipeline::setupTransferFunctions()
 {
@@ -90,7 +69,11 @@ void VolumePipeline::setupTransferFunctions()
     m_prop->SetColor(m_colorTransferFunction);
 }
 
-vtkSmartPointer<vtkVolume> VolumePipeline::GetVolume() const
+vtkVolumeProperty *VolumeProperty::getVolumeProperty()
 {
-    return m_volume;
+    return m_prop;
+}
+vtkImageData *VolumeProperty::getImageData()
+{
+    return m_imageData;
 }

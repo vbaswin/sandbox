@@ -13,12 +13,14 @@ public:
                         std::pair<double, double> scalarRange);
     vtkSmartPointer<vtkVolume> getVolume() const;
     VolumePipeline *getPipeline() const;
+    vtkImageData *getImageData();
+    vtkVolumeProperty *getVolumeProperty();
 
 signals:
-    void volumeReady();
-    void reRender();
-public slots:
+    void dataPropertyReady();
+private slots:
     void setRangeStart(int val);
+    void onDataPropertyReady();
 
 private:
     std::shared_ptr<VolumePipeline> m_pipeline;

@@ -3,26 +3,34 @@
 Viewer3DViewModel::Viewer3DViewModel(std::shared_ptr<VolumePipeline> pipeline, QObject *parent)
     : QObject{parent}
     , m_pipeline(pipeline)
-{}
-void Viewer3DViewModel::loadVolumeData(vtkSmartPointer<vtkImageData> imageData,
-                                       std::pair<double, double> scalarRange)
+{
+    connect(m_pipeline.get(),
+            &VolumePipeline::dataPropertyReady,
+            this,
+            &Viewer3DViewModel::dataPropertyReady);
+}
+void Viewer3DViewModel::on void Viewer3DViewModel::loadVolumeData(
+    vtkSmartPointer<vtkImageData> imageData, std::pair<double, double> scalarRange)
 {
     if (!imageData)
         return;
 
     m_pipeline->SetInputData(imageData, scalarRange);
-    emit volumeReady();
 }
 
 void Viewer3DViewModel::setRangeStart(int val)
 {
     m_pipeline->setRangeStart(val);
-    emit reRender();
+    // emit reRender();
 }
 
-vtkSmartPointer<vtkVolume> Viewer3DViewModel::getVolume() const
+vtkImageData *Viewer3DViewModel::getImageData()
 {
-    return m_pipeline->GetVolume();
+    return m_pipeline->getImageData();
+}
+vtkVolumeProperty *Viewer3DViewModel::getVolumeProperty()
+{
+    return m_pipeline->getVolumeProperty();
 }
 
 VolumePipeline *Viewer3DViewModel::getPipeline() const
