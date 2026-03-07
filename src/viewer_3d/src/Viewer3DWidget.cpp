@@ -3,15 +3,18 @@
 #include "vtkGenericOpenGLRenderWindow.h"
 #include "vtkRenderer.h"
 
-Viewer3DWidget::Viewer3DWidget(Viewer3DViewModel *viewModel, QWidget *parent)
+Viewer3DWidget::Viewer3DWidget(std::unique_ptr<Viewer3DViewModel> viewModel, QWidget *parent)
     : QWidget(parent)
-    , m_viewModel(viewModel)
+    , m_viewModel(std::move(viewModel))
 {
     setupUI();
     setupVtk();
 
-    connect(m_viewModel, &Viewer3DViewModel::volumeReady, this, &Viewer3DWidget::onVolumeReady);
-    connect(m_viewModel, &Viewer3DViewModel::reRender, this, &Viewer3DWidget::reRender);
+    connect(m_viewModel.get(),
+            &Viewer3DViewModel::volumeReady,
+            this,
+            &Viewer3DWidget::onVolumeReady);
+    connect(m_viewModel.get(), &Viewer3DViewModel::reRender, this, &Viewer3DWidget::reRender);
 }
 
 void Viewer3DWidget::setupUI()

@@ -19,6 +19,6 @@ public:
     //     void sliderChanged(int val);
 
     // private:
-    DicomLoader *m_dicomLoader;
+    std::unique_ptr<DicomLoader> m_dicomLoader;
     std::unique_ptr<Viewer3D::Interfaces::IViewer3DViewModel> m_viewer3DVM;
 };

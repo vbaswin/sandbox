@@ -18,16 +18,11 @@ public:
                         QWidget *parent = nullptr);
 
 private:
-    // void setupPalette();
     void setupUI();
     void setupViews();
-    // MainViewModel *m_viewModel;
-    // Viewer3DViewModel *m_viewer3DViewModel;
-    // Viewer3DWidget *m_viewer3DWidget;
 
     std::unique_ptr<Viewer3D::Interfaces::IViewer3D> m_viewer3D;
 
-    // QWidget *threeD = nullptr;
     QWidget *coronal = nullptr;
     QWidget *axial = nullptr;
     QWidget *sagittal = nullptr;

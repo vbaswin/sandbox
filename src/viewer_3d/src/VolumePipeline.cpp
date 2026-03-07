@@ -77,6 +77,7 @@ void VolumePipeline::setupTransferFunctions()
 
     for (const auto &point : Module3D::preset) {
         double shiftedHU = point.hu + m_rangeStart;
+        qDebug() << shiftedHU << " : " << point.hu;
 
         m_opacityPiecewiseFunction->AddPoint(shiftedHU, point.opacity);
         m_colorTransferFunction->AddRGBPoint(shiftedHU,

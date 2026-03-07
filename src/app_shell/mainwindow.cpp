@@ -98,7 +98,7 @@ void MainWindow::setupViews()
     verSplitter2->addWidget(axial);
     this->setCentralWidget(horSplitter);
 
-    // threeD->setMinimumSize(100, 100);
+    // m_viewer3D->setMinimumSize(100, 100);
     axial->setMinimumSize(100, 100);
     coronal->setMinimumSize(100, 100);
     sagittal->setMinimumSize(100, 100);

@@ -8,6 +8,7 @@
 #include "core/Contants.h"
 #include "src/viewer_3d/inc/IViewer3D.h"
 #include "src/viewer_3d/src/Viewer3DWidget.h"
+#include "src/viewer_3d/src/VolumePipeline.h"
 #include <iostream>
 #include <qapplication.h>
 
@@ -38,8 +39,12 @@ int main(int argc, char *argv[])
         qWarning() << "Failed to load stylesheet!";
     }
 
-    std::unique_ptr<Viewer3D::Interfaces::IViewer3D> viewer3DWidget
-        = std::make_unique<Viewer3DWidget>(new Viewer3DViewModel(new VolumePipeline));
+    // std::unique_ptr<Viewer3D::Interfaces::IViewer3DViewModel>
+    std::unique_ptr<VolumePipeline> volPipeline = std::make_unique<VolumePipeline>();
+    std::unique_ptr<Viewer3DViewModel> viewer3DVM = std::make_unique<Viewer3DViewModel>(volPipeline);
+    std::unique_ptr<MainViewModel> mainVM = std::make_unique<MainViewModel>(viewer3DVM);
+    mainVM->executeInitialAppLoad(Constants::DEFAULT_DICOM_DIR);
+    std::unique_ptr<Viewer3DWidget> viewer3DWidget = std::make_unique<Viewer3DWidget>(viewer3DVM);
 
     MainWindow w(std::move(viewer3DWidget));
 
