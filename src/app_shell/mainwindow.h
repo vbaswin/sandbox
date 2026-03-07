@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include <QSlider>
 #include <QVTKOpenGLNativeWidget.h>
+#include "src/viewer_3d/inc/IViewer3D.h"
 // #include "MainViewModel.h"
 
 // #include "src/viewer_3d/inc/.h"
@@ -13,7 +14,8 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 public:
     // explicit MainWindow(MainViewModel *viewModel, QWidget *parent = nullptr);
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(std::unique_ptr<Viewer3D::Interfaces::IViewer3D> viewer,
+                        QWidget *parent = nullptr);
 
 private:
     // void setupPalette();
@@ -23,13 +25,12 @@ private:
     // Viewer3DViewModel *m_viewer3DViewModel;
     // Viewer3DWidget *m_viewer3DWidget;
 
-    QVTKOpenGLNativeWidget *threeD = nullptr;
-    QVTKOpenGLNativeWidget *coronal = nullptr;
-    QVTKOpenGLNativeWidget *axial = nullptr;
-    QVTKOpenGLNativeWidget *sagittal = nullptr;
+    std::unique_ptr<Viewer3D::Interfaces::IViewer3D> m_viewer3D;
 
-    vtkGeneric
+    // QWidget *threeD = nullptr;
+    QWidget *coronal = nullptr;
+    QWidget *axial = nullptr;
+    QWidget *sagittal = nullptr;
 
-        QSlider *m_slider
-        = nullptr;
+    QSlider *m_slider = nullptr;
 };

@@ -24,14 +24,14 @@ MainViewModel::~MainViewModel()
 //     m_viewer3DViewModel->getPipeline()->setRangeStart(val);
 // }
 
-// void MainViewModel::executeInitialAppLoad(const char *path)
-// {
-//     if (m_dicomLoader->loadDirectory(path)) {
-//         double range[2];
-//         m_dicomLoader->GetScalarRange(range);
-//         std::pair<double, double> tmp_range{range[0], range[1]};
-//         qDebug() << "Dicom loaded successfully. Range: " << range[0] << " to " << range[1];
+void MainViewModel::executeInitialAppLoad(const char *path)
+{
+    if (m_dicomLoader->loadDirectory(path)) {
+        double range[2];
+        m_dicomLoader->GetScalarRange(range);
+        std::pair<double, double> tmp_range{range[0], range[1]};
+        qDebug() << "Dicom loaded successfully. Range: " << range[0] << " to " << range[1];
 
-//         m_viewer3DViewModel->loadVolumeData(m_dicomLoader->GetOutputData(), tmp_range);
-//     }
-// }
+        m_viewer3DVM->loadVolumeData(m_dicomLoader->GetOutputData(), tmp_range);
+    }
+}

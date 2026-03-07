@@ -12,7 +12,10 @@ INCLUDEPATH += $$PWD/src
 # -----------------
 # Core Infrastructure
 # -----------------
-HEADERS += src/core/Constants.h
+HEADERS += src/core/Constants.h \
+    src/viewer_3d/inc/IViewer3D.h \
+    src/viewer_3d/inc/IViewer3DViewModel.h \
+    src/viewer_3d/inc/IVolumePipeline.h
 
 # -----------------
 # Extracted Feature: DICOM I/O

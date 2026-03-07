@@ -1,8 +1,8 @@
 #include "viewer3dviewmodel.h"
 
-Viewer3DViewModel::Viewer3DViewModel(QObject *parent)
+Viewer3DViewModel::Viewer3DViewModel(VolumePipeline *pipeline, QObject *parent)
     : QObject{parent}
-    , m_pipeline{std::make_unique<VolumePipeline>()}
+    , m_pipeline(pipeline)
 {}
 void Viewer3DViewModel::loadVolumeData(vtkSmartPointer<vtkImageData> imageData,
                                        std::pair<double, double> scalarRange)

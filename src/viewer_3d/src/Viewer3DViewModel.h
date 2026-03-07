@@ -1,13 +1,14 @@
 #pragma once
 
 #include <QObject>
+#include "src/viewer_3d/inc/IViewer3DViewModel.h"
 #include "volumepipeline.h"
 
-class Viewer3DViewModel : public QObject
+class Viewer3DViewModel : public QObject, public Viewer3D::Interfaces::IViewer3DViewModel
 {
     Q_OBJECT
 public:
-    explicit Viewer3DViewModel(QObject *parent = nullptr);
+    explicit Viewer3DViewModel(VolumePipeline *, QObject *parent = nullptr);
     void loadVolumeData(vtkSmartPointer<vtkImageData> imageData,
                         std::pair<double, double> scalarRange);
     vtkSmartPointer<vtkVolume> getVolume() const;

@@ -2,10 +2,11 @@
 
 #include <QVTKOpenGLNativeWidget.h>
 #include <QWidget>
+#include "src/viewer_3d/inc/IViewer3D.h"
 #include "viewer3dviewmodel.h"
 #include "vtkCamera.h"
 
-class Viewer3DWidget : public QWidget
+class Viewer3DWidget : public QWidget, public Viewer3D::Interfaces::IViewer3D
 {
     Q_OBJECT
 public:
@@ -14,6 +15,8 @@ public:
 private slots:
     void onVolumeReady();
     void reRender();
+
+    [[nodiscard]] QWidget *asWidget() override { return this; };
 
 private:
     Viewer3DViewModel *m_viewModel;

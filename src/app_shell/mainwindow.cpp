@@ -9,11 +9,13 @@
 #include <QToolBar>
 #include <QVBoxLayout>
 #include <QVTKOpenGLNativeWidget.h>
+#include "src/viewer_3d/inc/IViewer3D.h"
 
 // MainWindow::MainWindow(MainViewModel *viewModel, QWidget *parent)
 //     : QMainWindow(parent)
 //     , m_viewModel(viewModel)
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(std::unique_ptr<Viewer3D::Interfaces::IViewer3D> viewer3D, QWidget *parent)
+    : m_viewer3D(std::move(viewer3D))
 {
     this->resize(1920, 1080);
     // m_viewer3DViewModel = m_viewModel->getViewer3DViewModel();
@@ -84,24 +86,24 @@ void MainWindow::setupViews()
     horSplitter->addWidget(verSplitter1);
     horSplitter->addWidget(verSplitter2);
 
-    threeD = new QVTKOpenGLNativeWidget(this);
+    // threeD = new QVTKOpenGLNativeWidget(this);
     axial = new QVTKOpenGLNativeWidget(this);
     coronal = new QVTKOpenGLNativeWidget(this);
     sagittal = new QVTKOpenGLNativeWidget(this);
 
-    verSplitter1->addWidget(threeD);
+    verSplitter1->addWidget(m_viewer->asWidget());
     verSplitter1->addWidget(coronal);
 
     verSplitter2->addWidget(sagittal);
     verSplitter2->addWidget(axial);
     this->setCentralWidget(horSplitter);
 
-    threeD->setMinimumSize(100, 100);
+    // threeD->setMinimumSize(100, 100);
     axial->setMinimumSize(100, 100);
     coronal->setMinimumSize(100, 100);
     sagittal->setMinimumSize(100, 100);
 
-    threeD->setObjectName("medicalSlice");
+    // threeD->setObjectName("medicalSlice");
     axial->setObjectName("medicalSlice");
     sagittal->setObjectName("medicalSlice");
     coronal->setObjectName("medicalSlice");

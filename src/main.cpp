@@ -6,6 +6,8 @@
 #include "app_shell/mainWindow.h"
 #include "app_shell/mainviewmodel.h"
 #include "core/Contants.h"
+#include "src/viewer_3d/inc/IViewer3D.h"
+#include "src/viewer_3d/src/Viewer3DWidget.h"
 #include <iostream>
 #include <qapplication.h>
 
@@ -36,9 +38,10 @@ int main(int argc, char *argv[])
         qWarning() << "Failed to load stylesheet!";
     }
 
-    // MainViewModel viewModel;
-    // MainWindow w(&viewModel);
-    MainWindow w;
+    std::unique_ptr<Viewer3D::Interfaces::IViewer3D> viewer3DWidget
+        = std::make_unique<Viewer3DWidget>(new Viewer3DViewModel(new VolumePipeline));
+
+    MainWindow w(std::move(viewer3DWidget));
 
     w.show();
     // viewModel.executeInitialAppLoad(Constants::DEFAULT_DICOM_DIR);
