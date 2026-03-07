@@ -91,7 +91,7 @@ void MainWindow::setupViews()
     coronal = new QVTKOpenGLNativeWidget(this);
     sagittal = new QVTKOpenGLNativeWidget(this);
 
-    verSplitter1->addWidget(m_viewer->asWidget());
+    verSplitter1->addWidget(m_viewer3D->asWidget());
     verSplitter1->addWidget(coronal);
 
     verSplitter2->addWidget(sagittal);

@@ -9,7 +9,8 @@ class MainViewModel : public QObject
 {
     Q_OBJECT
 public:
-    explicit MainViewModel(QObject *parent = nullptr);
+    explicit MainViewModel(std::unique_ptr<Viewer3D::Interfaces::IViewer3DViewModel> viewer3DVM,
+                           QObject *parent = nullptr);
     ~MainViewModel() override;
 
     //     Viewer3DViewModel *getViewer3DViewModel() const;

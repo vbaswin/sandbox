@@ -14,8 +14,7 @@ INCLUDEPATH += $$PWD/src
 # -----------------
 HEADERS += src/core/Constants.h \
     src/viewer_3d/inc/IViewer3D.h \
-    src/viewer_3d/inc/IViewer3DViewModel.h \
-    src/viewer_3d/inc/IVolumePipeline.h
+    src/viewer_3d/inc/IViewer3DViewModel.h
 
 # -----------------
 # Extracted Feature: DICOM I/O

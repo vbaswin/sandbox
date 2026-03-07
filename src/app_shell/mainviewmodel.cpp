@@ -1,10 +1,14 @@
 #include "mainviewmodel.h"
 #include <QDebug>
+#include <utility>
 
-MainViewModel::MainViewModel(QObject *parent)
+MainViewModel::MainViewModel(std::unique_ptr<Viewer3D::Interfaces::IViewer3DViewModel> viewer3DVM,
+                             QObject *parent)
     : QObject{parent}
+    , m_dicomLoader(new DicomLoader)
+    , m_viewer3DVM(std::move(viewer3DVM))
 {
-    //     // m_dicomLoader = new DicomLoader();
+    // m_dicomLoader = new DicomLoader();
     //     // m_viewer3DViewModel = new Viewer3DViewModel(this);
 }
 
