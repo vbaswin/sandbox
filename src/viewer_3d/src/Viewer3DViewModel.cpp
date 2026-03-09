@@ -32,7 +32,7 @@ void Viewer3DViewModel::setOrientation(Viewer3D::viewOrientation orient)
 {
     m_orient = orient;
 }
-Viewer3D::viewOrientation getorientation()
+Viewer3D::viewOrientation Viewer3DViewModel::getorientation()
 {
     return m_orient;
 }

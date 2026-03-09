@@ -14,7 +14,7 @@ MainViewModel::MainViewModel(std::shared_ptr<Viewer3D::Interfaces::IViewer3DView
 
 void MainViewModel::requestBlendModeChangedFn(Viewer3D::BlendMode mode)
 {
-    emit requestBlendModeChanged(mode);
+    emit mainRequestBlendModeChanged(mode);
 }
 
 MainViewModel::~MainViewModel()

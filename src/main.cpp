@@ -48,11 +48,14 @@ int main(int argc, char *argv[])
 
     std::shared_ptr<MainViewModel> mainVM = std::make_shared<MainViewModel>(viewer3DVM);
 
-    auto main3DWidet = new Viewer3DWidget(viewer3DVM, Viewer3D::viewOrientation::Main3D);
+    auto main3D = new Viewer3DWidget(viewer3DVM, Viewer3D::viewOrientation::Main3D);
+    auto coronal = new Viewer3DWidget(viewer3DVM, Viewer3D::viewOrientation::Sagittal);
+    auto axial = new Viewer3DWidget(viewer3DVM, Viewer3D::viewOrientation::Axial);
+    auto sagittal = new Viewer3DWidget(viewer3DVM, Viewer3D::viewOrientation::Coronal);
 
-    std::shared_ptr<Viewer3DWidget> viewer3DWidget = std::make_shared<Viewer3DWidget>(viewer3DVM);
+    // std::shared_ptr<Viewer3DWidget> viewer3DWidget = std::make_shared<Viewer3DWidget>(viewer3DVM);
 
-    MainWindow w(viewer3DWidget);
+    MainWindow w(mainVM, main3D, sagittal, coronal, axial);
 
     w.show();
     mainVM->executeInitialAppLoad(Constants::DEFAULT_DICOM_DIR);

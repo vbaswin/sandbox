@@ -15,13 +15,12 @@ public:
 
     //     Viewer3DViewModel *getViewer3DViewModel() const;
     void executeInitialAppLoad(const char *path);
-    // public slots:
     //     void sliderChanged(int val);
     void requestBlendModeChangedFn(Viewer3D::BlendMode);
 signals:
-    void requestBlendModeChanged(Viewer3D::BlendMode);
+    void mainRequestBlendModeChanged(Viewer3D::BlendMode);
 
-    // private:
+private:
     std::shared_ptr<DicomLoader> m_dicomLoader;
     std::shared_ptr<Viewer3D::Interfaces::IViewer3DViewModel> m_viewer3DVM;
 };

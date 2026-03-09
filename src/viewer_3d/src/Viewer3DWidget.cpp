@@ -1,6 +1,7 @@
 #include "viewer3dwidget.h"
 #include <QVBoxLayout>
 #include "vtkGenericOpenGLRenderWindow.h"
+#include "vtkPlane.h"
 #include "vtkRenderer.h"
 
 Viewer3DWidget::Viewer3DWidget(std::shared_ptr<Viewer3DViewModel> viewModel,
@@ -17,7 +18,7 @@ Viewer3DWidget::Viewer3DWidget(std::shared_ptr<Viewer3DViewModel> viewModel,
             this,
             &Viewer3DWidget::onDataPropertyReady);
     connect(m_viewModel.get(),
-            &Viewer3DViewModel::blendModeChanged,
+            &Viewer3DViewModel::mainRequestBlendModeChange,
             this,
             &Viewer3DWidget::onBlendModeChanged);
 }
@@ -45,6 +46,46 @@ void Viewer3DWidget::setupVtk()
     m_renderWindow->SetWindowName("openglraycastmapper");
 
     m_vtkWidget->SetRenderWindow(m_renderWindow);
+
+    m_camera = m_renderer->GetActiveCamera();
+    vtkSmartPointer<vtkPlane> clipPlane = vtkSmartPointer<vtkPlane>::New();
+    switch (m_viewModel->getorientation()) {
+    case Viewer3D::viewOrientation::Main3D:
+        m_camera->SetParallelProjection(0);
+        break;
+    case Viewer3D::viewOrientation::Axial:
+        m_camera->SetFocalPoint(0, 0, 0);
+        m_camera->SetPosition(0, 0, 1);
+        m_camera->SetFocalPoint(0, 1, 0);
+        m_camera->SetParallelProjection(1);
+
+        clipPlane->SetOrigin(0, 0, 0);
+        clipPlane->SetNormal(0, 0, 1);
+        m_mapper->AddClippingPlane(clipPlane);
+        break;
+    case Viewer3D::viewOrientation::Sagittal:
+        m_camera->SetFocalPoint(0, 0, 0);
+        m_camera->SetPosition(0, 0, 1);
+        m_camera->SetFocalPoint(0, 1, 0);
+        m_camera->SetParallelProjection(1);
+
+        clipPlane->SetOrigin(0, 0, 0);
+        clipPlane->SetNormal(0, 0, 1);
+        m_mapper->AddClippingPlane(clipPlane);
+        break;
+    case Viewer3D::viewOrientation::Coronal:
+        m_camera->SetFocalPoint(0, 0, 0);
+        m_camera->SetPosition(0, 0, 1);
+        m_camera->SetFocalPoint(0, 1, 0);
+        m_camera->SetParallelProjection(1);
+
+        clipPlane->SetOrigin(0, 0, 0);
+        clipPlane->SetNormal(0, 0, 1);
+        m_mapper->AddClippingPlane(clipPlane);
+        break;
+    default:
+        break;
+    }
 }
 
 void Viewer3DWidget::setBlendMode(Viewer3D::BlendMode mode)

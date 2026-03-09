@@ -17,10 +17,16 @@
 //     : QMainWindow(parent)
 //     , m_viewModel(viewModel)
 MainWindow::MainWindow(std::shared_ptr<MainViewModel> mainVM,
-                       std::shared_ptr<Viewer3D::Interfaces::IViewer3D> viewer3D,
+                       Viewer3D::Interfaces::IViewer3D *main3D,
+                       Viewer3D::Interfaces::IViewer3D *sagittal,
+                       Viewer3D::Interfaces::IViewer3D *coronal,
+                       Viewer3D::Interfaces::IViewer3D *axial,
                        QWidget *parent)
-    : m_viewer3D(viewer3D)
-    , m_mainVM(mainVM)
+    : m_mainVM(mainVM)
+    , m_main3D(main3D)
+    , m_sagittal(sagittal)
+    , m_coronal(coronal)
+    , m_axial(axial)
 {
     this->resize(1920, 1080);
     // m_viewer3DViewModel = m_viewModel->getViewer3DViewModel();
@@ -101,17 +107,16 @@ void MainWindow::setupViews()
     horSplitter->addWidget(verSplitter2);
 
     // threeD = new QVTKOpenGLNativeWidget(this);
-    axial = new QVTKOpenGLNativeWidget(this);
-    coronal = new QVTKOpenGLNativeWidget(this);
-    sagittal = new QVTKOpenGLNativeWidget(this);
+    // axial = new QVTKOpenGLNativeWidget(this);
+    // coronal = new QVTKOpenGLNativeWidget(this);
+    // sagittal = new QVTKOpenGLNativeWidget(this);
 
-    QWidget *viewer = m_viewer3D->asWidget();
     // verSplitter1->addWidget(m_viewer3D->asWidget());
-    verSplitter1->addWidget(viewer);
-    verSplitter1->addWidget(coronal);
+    verSplitter1->addWidget(m_main3D->asWidget());
+    verSplitter1->addWidget(m_coronal->asWidget());
 
-    verSplitter2->addWidget(sagittal);
-    verSplitter2->addWidget(axial);
+    verSplitter2->addWidget(m_sagittal->asWidget());
+    verSplitter2->addWidget(m_axial->asWidget());
     this->setCentralWidget(horSplitter);
 
     horSplitter->setSizes({10000, 10000});
@@ -132,10 +137,10 @@ void MainWindow::setupViews()
     // coronal->setMinimumSize(100, 100);
     // sagittal->setMinimumSize(100, 100);
 
-    viewer->setObjectName("medicalSlice");
-    axial->setObjectName("medicalSlice");
-    sagittal->setObjectName("medicalSlice");
-    coronal->setObjectName("medicalSlice");
+    // viewer->setObjectName("medicalSlice");
+    // axial->setObjectName("medicalSlice");
+    // sagittal->setObjectName("medicalSlice");
+    // coronal->setObjectName("medicalSlice");
 
     connect(verSplitter2, &QSplitter::splitterMoved, [=]() {
         verSplitter1->setSizes(verSplitter2->sizes());

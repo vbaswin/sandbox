@@ -16,14 +16,14 @@ public:
     vtkImageData *getImageData();
     vtkVolumeProperty *getVolumeProperty();
 
+    void setOrientation(Viewer3D::viewOrientation);
+    Viewer3D::viewOrientation getorientation();
 signals:
     void dataPropertyReady();
     void blendModeChanged(Viewer3D::BlendMode mode);
-private slots:
+public slots:
     void setRangeStart(int val);
     void requestBlendModeChange(Viewer3D::BlendMode mode);
-    void setOrientation(Viewer3D::viewOrientation);
-    Viewer3D::viewOrientation getorientation();
 
 private:
     std::shared_ptr<VolumePipeline> m_pipeline;

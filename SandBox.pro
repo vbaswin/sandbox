@@ -13,8 +13,6 @@ INCLUDEPATH += $$PWD/src
 # Core Infrastructure
 # -----------------
 HEADERS += src/core/Constants.h \
-    src/viewer_2d/src/viewer2dviewmodel.h \
-    src/viewer_2d/src/viewer2dwidget.h \
     src/viewer_3d/inc/IViewer3D.h \
     src/viewer_3d/inc/IViewer3DViewModel.h
 
@@ -22,9 +20,7 @@ HEADERS += src/core/Constants.h \
 # Extracted Feature: DICOM I/O
 # -----------------
 HEADERS += src/dicom/DicomLoader.h
-SOURCES += src/dicom/DicomLoader.cpp \
-    src/viewer_2d/src/viewer2dviewmodel.cpp \
-    src/viewer_2d/src/viewer2dwidget.cpp
+SOURCES += src/dicom/DicomLoader.cpp
 
 # -----------------
 # Extracted Feature: 3D Viewer
