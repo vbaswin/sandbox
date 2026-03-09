@@ -11,11 +11,14 @@ class Viewer3DWidget : public QWidget, public Viewer3D::Interfaces::IViewer3D
 {
     Q_OBJECT
 public:
-    explicit Viewer3DWidget(std::shared_ptr<Viewer3DViewModel> viewModel, QWidget *parent = nullptr);
+    explicit Viewer3DWidget(std::shared_ptr<Viewer3DViewModel> viewModel,
+                            Viewer3D::viewOrientation,
+                            QWidget *parent = nullptr);
     ~Viewer3DWidget() override = default;
-    void setBlendMode(BlendMode mode);
+    void setBlendMode(Viewer3D::BlendMode mode);
 private slots:
     void onDataPropertyReady();
+    void onBlendModeChanged(Viewer3D::BlendMode mode);
 
     [[nodiscard]] QWidget *asWidget() override { return this; };
 

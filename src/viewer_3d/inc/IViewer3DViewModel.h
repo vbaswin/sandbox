@@ -1,4 +1,5 @@
 #pragma once
+#include "Types.h"
 #include "vtkImageData.h"
 #include "vtkSmartPointer.h"
 
@@ -12,6 +13,7 @@ public:
     virtual void loadVolumeData(vtkSmartPointer<vtkImageData> imageData,
                                 std::pair<double, double> scalarRange)
         = 0;
+    virtual void requestBlendModeChange(Viewer3D::BlendMode mode) = 0;
 };
 
 } // namespace Viewer3D::Interfaces

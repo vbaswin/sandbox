@@ -9,13 +9,18 @@
 #include <QToolBar>
 #include <QVBoxLayout>
 #include <QVTKOpenGLNativeWidget.h>
+#include "MainViewModel.h"
 #include "src/viewer_3d/inc/IViewer3D.h"
+#include "src/viewer_3d/inc/Types.h"
 
 // MainWindow::MainWindow(MainViewModel *viewModel, QWidget *parent)
 //     : QMainWindow(parent)
 //     , m_viewModel(viewModel)
-MainWindow::MainWindow(std::shared_ptr<Viewer3D::Interfaces::IViewer3D> viewer3D, QWidget *parent)
+MainWindow::MainWindow(std::shared_ptr<MainViewModel> mainVM,
+                       std::shared_ptr<Viewer3D::Interfaces::IViewer3D> viewer3D,
+                       QWidget *parent)
     : m_viewer3D(viewer3D)
+    , m_mainVM(mainVM)
 {
     this->resize(1920, 1080);
     // m_viewer3DViewModel = m_viewModel->getViewer3DViewModel();
@@ -62,19 +67,28 @@ void MainWindow::setupUI()
     QActionGroup *modeGroup = new QActionGroup(this);
     modeGroup->setExclusive(true);
 
-    QAction *actDRR = toolbar->addAction("DRR");
-    actDRR->setCheckable(true);
-    modeGroup->addAction(actDRR);
+    QAction *actRS = toolbar->addAction("RS");
+    actRS->setCheckable(true);
+    actRS->setData(QVariant::fromValue(Viewer3D::BlendMode::Composite));
+    modeGroup->addAction(actRS);
 
     QAction *actMIP = toolbar->addAction("MIP");
     actMIP->setCheckable(true);
+    actMIP->setData(QVariant::fromValue(Viewer3D::BlendMode::MaximumIntensity));
     modeGroup->addAction(actMIP);
 
-    QAction *actRS = toolbar->addAction("RS");
-    actRS->setCheckable(true);
-    modeGroup->addAction(actRS);
+    
+    QAction *actDRR = toolbar->addAction("DRR");
+    actDRR->setCheckable(true);
+    actDRR->setData(QVariant::fromValue(Viewer3D::BlendMode::Additive));
+    modeGroup->addAction(actDRR);
 
-    // toolbar->add
+    connect(modeGroup, &QActionGroup::triggered, this, [this](QAction *action) {
+        if (m_mainVM) {
+            Viewer3D::BlendMode selectedMode = action->data().value<Viewer3D::BlendMode>();
+            m_mainVM->requestBlendModeChangedFn(selectedMode);
+        }
+    });
 }
 
 void MainWindow::setupViews()

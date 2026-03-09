@@ -12,6 +12,11 @@ MainViewModel::MainViewModel(std::shared_ptr<Viewer3D::Interfaces::IViewer3DView
     // m_viewer3DViewModel = new Viewer3DViewModel(this);
 }
 
+void MainViewModel::requestBlendModeChangedFn(Viewer3D::BlendMode mode)
+{
+    emit requestBlendModeChanged(mode);
+}
+
 MainViewModel::~MainViewModel()
 {
     // delete m_dicomLoader;

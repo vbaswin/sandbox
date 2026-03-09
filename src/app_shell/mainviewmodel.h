@@ -17,6 +17,9 @@ public:
     void executeInitialAppLoad(const char *path);
     // public slots:
     //     void sliderChanged(int val);
+    void requestBlendModeChangedFn(Viewer3D::BlendMode);
+signals:
+    void requestBlendModeChanged(Viewer3D::BlendMode);
 
     // private:
     std::shared_ptr<DicomLoader> m_dicomLoader;

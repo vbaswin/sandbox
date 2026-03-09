@@ -1,4 +1,5 @@
 #pragma once
+#include <QMetaType>
 #include <vector>
 
 namespace Viewer3D {
@@ -22,4 +23,10 @@ inline const std::vector<TransferPoint> preset
        {1500, 0.8, 167, 163, 152},
        {2000, 0.81, 230, 230, 232}, // solid metal
        {3000, 1.0, 111, 105, 107}};
+
+enum viewOrientation { Axial, Coronal, Sagittal, Main3D };
+enum BlendMode { Composite, MaximumIntensity, Additive };
+
 } // namespace Viewer3D
+
+Q_DECLARE_METATYPE(Viewer3D::BlendMode);

@@ -7,6 +7,7 @@
 #include "app_shell/mainviewmodel.h"
 #include "core/Contants.h"
 #include "src/viewer_3d/inc/IViewer3D.h"
+#include "src/viewer_3d/inc/Types.h"
 #include "src/viewer_3d/src/Viewer3DWidget.h"
 #include "src/viewer_3d/src/VolumePipeline.h"
 #include <iostream>
@@ -20,6 +21,8 @@ VTK_MODULE_INIT(vtkRenderingVolumeOpenGL2);
 
 int main(int argc, char *argv[])
 {
+    qRegisterMetaType<Viewer3D::BlendMode>("BlendMode");
+
     // Essential for vtkGPUVolumeRayCastMapper when using QVTKOpenGLNativeWidget:
     // 1. Disable Multi-Sampling (MSAA) which interferes with VTK's offscreen volume rendering passes.
     QSurfaceFormat format = QVTKOpenGLNativeWidget::defaultFormat();
@@ -42,7 +45,11 @@ int main(int argc, char *argv[])
     // std::unique_ptr<Viewer3D::Interfaces::IViewer3DViewModel>
     std::shared_ptr<VolumePipeline> volPipeline = std::make_shared<VolumePipeline>();
     std::shared_ptr<Viewer3DViewModel> viewer3DVM = std::make_shared<Viewer3DViewModel>(volPipeline);
+
     std::shared_ptr<MainViewModel> mainVM = std::make_shared<MainViewModel>(viewer3DVM);
+
+    auto main3DWidet = new Viewer3DWidget(viewer3DVM, Viewer3D::viewOrientation::Main3D);
+
     std::shared_ptr<Viewer3DWidget> viewer3DWidget = std::make_shared<Viewer3DWidget>(viewer3DVM);
 
     MainWindow w(viewer3DWidget);

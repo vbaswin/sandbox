@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QWidget>
-enum BlendMode { Composite, MaximumIntensity, Additive };
 
 namespace Viewer3D::Interfaces {
 

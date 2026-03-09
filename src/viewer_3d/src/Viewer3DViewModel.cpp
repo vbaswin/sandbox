@@ -17,10 +17,24 @@ void Viewer3DViewModel::loadVolumeData(vtkSmartPointer<vtkImageData> imageData,
     m_pipeline->SetInputData(imageData, scalarRange);
 }
 
+void Viewer3DViewModel::blendModeChanged(Viewer3D::BlendMode mode)
+{
+    emit requestBlendModeChange(mode);
+}
+
 void Viewer3DViewModel::setRangeStart(int val)
 {
     m_pipeline->setRangeStart(val);
     // emit reRender();
+}
+
+void Viewer3DViewModel::setOrientation(Viewer3D::viewOrientation orient)
+{
+    m_orient = orient;
+}
+Viewer3D::viewOrientation getorientation()
+{
+    return m_orient;
 }
 
 vtkImageData *Viewer3DViewModel::getImageData()
