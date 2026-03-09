@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-namespace Module3D {
+namespace Viewer3D {
 
 struct TransferPoint
 {
@@ -22,4 +22,4 @@ inline const std::vector<TransferPoint> preset
        {1500, 0.8, 167, 163, 152},
        {2000, 0.81, 230, 230, 232}, // solid metal
        {3000, 1.0, 111, 105, 107}};
-} // namespace Module3D
+} // namespace Viewer3D

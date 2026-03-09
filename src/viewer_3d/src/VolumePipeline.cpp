@@ -54,7 +54,7 @@ void VolumePipeline::setupTransferFunctions()
     m_opacityPiecewiseFunction->RemoveAllPoints();
     m_colorTransferFunction->RemoveAllPoints();
 
-    for (const auto &point : Module3D::preset) {
+    for (const auto &point : Viewer3D::preset) {
         double shiftedHU = point.hu + m_rangeStart;
         qDebug() << shiftedHU << " : " << point.hu;
 

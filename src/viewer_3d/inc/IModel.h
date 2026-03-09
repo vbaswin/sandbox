@@ -2,7 +2,6 @@
 #include "vtkImageData.h"
 #include "vtkSmartPointer.h"
 
-enum BlendMode { Composite, MaximumIntensity, Additive };
 
 class IModel
 {
