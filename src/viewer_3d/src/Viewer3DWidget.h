@@ -15,7 +15,7 @@ public:
     ~Viewer3DWidget() override = default;
     void setBlendMode(BlendMode mode);
 private slots:
-    void onDataPropsReady();
+    void onDataPropertyReady();
 
     [[nodiscard]] QWidget *asWidget() override { return this; };
 

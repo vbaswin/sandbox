@@ -66,7 +66,7 @@ void Viewer3DWidget::onDataPropertyReady()
     // setBlendMode(BlendMode::MaximumIntensity);
     // setBlendMode(BlendMode::Additive);
     m_renderer->RemoveAllViewProps();
-    m_renderer->AddVolume(m_viewModel->getVolume());
+    m_renderer->AddVolume(m_volume);
     m_renderer->ResetCameraClippingRange();
     m_renderer->ResetCamera();
     m_renderWindow->Render();

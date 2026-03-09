@@ -69,11 +69,11 @@ void VolumePipeline::setupTransferFunctions()
     m_prop->SetColor(m_colorTransferFunction);
 }
 
-vtkVolumeProperty *VolumeProperty::getVolumeProperty()
+vtkVolumeProperty *VolumePipeline::getVolumeProperty()
 {
     return m_prop;
 }
-vtkImageData *VolumeProperty::getImageData()
+vtkImageData *VolumePipeline::getImageData()
 {
     return m_imageData;
 }
