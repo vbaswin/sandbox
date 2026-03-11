@@ -8,6 +8,7 @@
 #include "vtkSmartPointer.h"
 #include "vtkVolume.h"
 #include "vtkVolumeProperty.h"
+#include <array>
 
 class VolumePipeline : public QObject, public IModel
 {
@@ -21,6 +22,7 @@ public:
     void setRangeStart(int range);
     vtkVolumeProperty *getVolumeProperty();
     vtkImageData *getImageData();
+    std::array<double, 3> getSpacing() { return m_spacing; };
 
 private:
     vtkSmartPointer<vtkPiecewiseFunction> m_opacityPiecewiseFunction;
@@ -30,6 +32,7 @@ private:
 
     int m_rangeStart = 0;
     vtkSmartPointer<vtkImageData> m_imageData;
+    std::array<double, 3> m_spacing{1.0, 1.0, 1.0};
     std::pair<double, double> m_range;
 signals:
     void dataPropertyReady();

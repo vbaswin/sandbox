@@ -51,8 +51,8 @@ void Viewer3DWidget::setupVtk()
     m_vtkWidget->SetRenderWindow(m_renderWindow);
 
     // 0 sagittal, 1 coronal, 2 axial
-    // std::array<double, 3> spacing = m_viewModel->getSpacing();
-    std::array<double, 3> spacing{0.1, 0.1, 0.1};
+    std::array<double, 3> spacing = m_viewModel->getSpacing();
+    // std::array<double, 3> spacing{0.1, 0.1, 0.1};
 
     m_camera = m_renderer->GetActiveCamera();
     vtkSmartPointer<vtkPlane> clipPlane = vtkSmartPointer<vtkPlane>::New();
@@ -61,7 +61,6 @@ void Viewer3DWidget::setupVtk()
     vtkSmartPointer<vtkInteractorStyleTrackballCamera> trackballStyle
         = vtkSmartPointer<vtkInteractorStyleTrackballCamera>::New();
 
-    double stepSize = 2.0;
     switch (m_orient) {
     case Viewer3D::viewOrientation::Main3D:
         m_camera->SetParallelProjection(0);

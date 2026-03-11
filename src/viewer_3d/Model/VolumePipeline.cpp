@@ -31,6 +31,15 @@ void VolumePipeline::SetInputData(vtkSmartPointer<vtkImageData> imageData,
                                   std::pair<double, double> scalarRange)
 {
     m_imageData = imageData;
+    if (m_imageData) {
+        double spacing[3];
+        m_imageData->GetSpacing(spacing);
+        m_spacing[0] = spacing[0];
+        m_spacing[1] = spacing[1];
+        m_spacing[2] = spacing[2];
+
+        qDebug() << "Spacing: " << m_spacing[0] << " " << m_spacing[1] << " " << m_spacing[2];
+    }
     setRange(scalarRange);
     setupTransferFunctions();
     emit dataPropertyReady();

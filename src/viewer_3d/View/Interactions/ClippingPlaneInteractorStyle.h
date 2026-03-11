@@ -20,7 +20,7 @@ private:
 
     bool m_isAdjustingPlane{false};
     int m_accumulatedDrag{0}; // for slice by slice movement
-    int m_dragSensitivity{1}; // how many screen pixels = 1 slice jump
+    int m_dragSensitivity{5}; // how many screen pixels = 1 slice jump
     int m_lastY{0};
 
 public:

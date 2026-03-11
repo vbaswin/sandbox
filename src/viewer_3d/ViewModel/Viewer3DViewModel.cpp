@@ -25,15 +25,7 @@ void Viewer3DViewModel::requestBlendModeChange(Viewer3D::BlendMode mode)
 
 std::array<double, 3> Viewer3DViewModel::getSpacing()
 {
-    double spacing[3];
-    getImageData()->GetSpacing(spacing);
-    m_spacing[0] = spacing[0];
-    m_spacing[1] = spacing[1];
-    m_spacing[2] = spacing[2];
-
-    qDebug() << "Spacing: " << m_spacing[0] << " " << m_spacing[1] << " " << m_spacing[2] << " ";
-
-    return m_spacing;
+    return m_pipeline->getSpacing();
 }
 
 void Viewer3DViewModel::setRangeStart(int val)
