@@ -1,4 +1,5 @@
-[ ] changing of the blend mode based on button clicked on all the views
+[ ] clipping the 3 other views to their respective axis
 [ ] global cursor to connect all the views, to update based on that
 
 [*] independent 3d views in all the 4 viewports
+[*] changing of the blend mode based on button clicked on all the views

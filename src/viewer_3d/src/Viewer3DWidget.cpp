@@ -10,6 +10,7 @@ Viewer3DWidget::Viewer3DWidget(std::shared_ptr<Viewer3DViewModel> viewModel,
                                QWidget *parent)
     : QWidget(parent)
     , m_viewModel(viewModel)
+    , m_orient(orient)
 {
     setupUI();
     setupVtk();
@@ -50,38 +51,37 @@ void Viewer3DWidget::setupVtk()
 
     m_camera = m_renderer->GetActiveCamera();
     vtkSmartPointer<vtkPlane> clipPlane = vtkSmartPointer<vtkPlane>::New();
-    switch (m_viewModel->getorientation()) {
+    switch (m_orient) {
     case Viewer3D::viewOrientation::Main3D:
         m_camera->SetParallelProjection(0);
         break;
     case Viewer3D::viewOrientation::Axial:
-        m_camera->SetFocalPoint(0, 0, 0);
         m_camera->SetPosition(0, 0, 1);
-        m_camera->SetFocalPoint(0, 1, 0);
-        m_camera->SetParallelProjection(1);
+        m_camera->SetFocalPoint(0, 0, 0);
+        // according to the dicom, y up because +y is anterior
+        m_camera->SetViewUp(0, 1, 0);
 
         clipPlane->SetOrigin(0, 0, 0);
+        // normal towards +z to ut away the foreground
         clipPlane->SetNormal(0, 0, 1);
         m_mapper->AddClippingPlane(clipPlane);
         break;
     case Viewer3D::viewOrientation::Sagittal:
+        m_camera->SetPosition(1, 0, 0);
         m_camera->SetFocalPoint(0, 0, 0);
-        m_camera->SetPosition(0, 0, 1);
-        m_camera->SetFocalPoint(0, 1, 0);
-        m_camera->SetParallelProjection(1);
+        m_camera->SetViewUp(0, 0, 1);
 
         clipPlane->SetOrigin(0, 0, 0);
-        clipPlane->SetNormal(0, 0, 1);
+        clipPlane->SetNormal(1, 0, 0); // towards +x
         m_mapper->AddClippingPlane(clipPlane);
         break;
     case Viewer3D::viewOrientation::Coronal:
+        m_camera->SetPosition(0, 1, 0);
         m_camera->SetFocalPoint(0, 0, 0);
-        m_camera->SetPosition(0, 0, 1);
-        m_camera->SetFocalPoint(0, 1, 0);
-        m_camera->SetParallelProjection(1);
+        m_camera->SetViewUp(0, 0, 1);
 
         clipPlane->SetOrigin(0, 0, 0);
-        clipPlane->SetNormal(0, 0, 1);
+        clipPlane->SetNormal(0, 1, 0);
         m_mapper->AddClippingPlane(clipPlane);
         break;
     default:

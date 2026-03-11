@@ -30,6 +30,7 @@ private:
     vtkSmartPointer<vtkRenderer> m_renderer;
     vtkSmartPointer<vtkGenericOpenGLRenderWindow> m_renderWindow;
     vtkSmartPointer<vtkCamera> m_camera;
+    Viewer3D::viewOrientation m_orient;
 
     void setupUI();
     void setupVtk();
