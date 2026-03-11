@@ -30,7 +30,7 @@ private:
     vtkSmartPointer<vtkVolumeProperty> m_prop;
     void setupTransferFunctions();
 
-    int m_rangeStart = 0;
+    int m_rangeStart = -650;
     vtkSmartPointer<vtkImageData> m_imageData;
     std::array<double, 3> m_spacing{1.0, 1.0, 1.0};
     std::pair<double, double> m_range;

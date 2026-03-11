@@ -4,11 +4,14 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLayout>
+#include <QMenu>
 #include <QSlider>
 #include <QSplitter>
 #include <QToolBar>
+#include <QToolButton>
 #include <QVBoxLayout>
 #include <QVTKOpenGLNativeWidget.h>
+#include <QWidgetAction>
 #include "MainViewModel.h"
 #include "src/viewer_3d/inc/IViewer3D.h"
 #include "src/viewer_3d/inc/Types.h"
@@ -73,7 +76,7 @@ void MainWindow::setupUI()
     QActionGroup *modeGroup = new QActionGroup(this);
     modeGroup->setExclusive(true);
 
-    QAction *actRS = toolbar->addAction("RS");
+    QAction *actRS = toolbar->addAction("Reset");
     actRS->setCheckable(true);
     actRS->setData(QVariant::fromValue(Viewer3D::BlendMode::Composite));
     modeGroup->addAction(actRS);
@@ -94,6 +97,40 @@ void MainWindow::setupUI()
             Viewer3D::BlendMode selectedMode = action->data().value<Viewer3D::BlendMode>();
             m_mainVM->requestBlendModeChange(selectedMode);
         }
+    });
+
+    toolbar->addSeparator();
+
+    QToolButton *rangeShiftBtn = new QToolButton(toolbar);
+    rangeShiftBtn->setText("Range Shift");
+    rangeShiftBtn->setPopupMode(QToolButton::InstantPopup);
+
+    QMenu *sliderMenu = new QMenu(this);
+    QWidget *sliderContainer = new QWidget(sliderMenu);
+    QVBoxLayout *containerLayout = new QVBoxLayout(sliderContainer);
+
+    QLabel *sliderLabel = new QLabel("Adjust Range Start", sliderContainer);
+    QSlider *rangeSlider = new QSlider(Qt::Horizontal, sliderContainer);
+
+    rangeSlider->setMinimum(-1000);
+    rangeSlider->setMaximum(100);
+    rangeSlider->setValue(-650);
+    rangeSlider->setMinimumWidth(200);
+
+    containerLayout->addWidget(sliderLabel);
+    containerLayout->addWidget(rangeSlider);
+    containerLayout->setContentsMargins(10, 5, 10, 10);
+
+    // wrap in qwidgetaction, so it can exist in a menu
+    QWidgetAction *sliderAction = new QWidgetAction(sliderMenu);
+    sliderAction->setDefaultWidget(sliderContainer);
+    sliderMenu->addAction(sliderAction);
+
+    rangeShiftBtn->setMenu(sliderMenu);
+    toolbar->addWidget(rangeShiftBtn);
+
+    connect(rangeSlider, &QSlider::valueChanged, this, [this, rangeSlider]() {
+        m_mainVM->setRangeStart(rangeSlider->value());
     });
 }
 

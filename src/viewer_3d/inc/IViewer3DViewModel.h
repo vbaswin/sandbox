@@ -14,6 +14,7 @@ public:
                                 std::pair<double, double> scalarRange)
         = 0;
     virtual void requestBlendModeChange(Viewer3D::BlendMode mode) = 0;
+    virtual void setRangeStart(int val) = 0;
 };
 
 } // namespace Viewer3D::Interfaces

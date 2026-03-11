@@ -6,10 +6,10 @@
 #include "app_shell/mainWindow.h"
 #include "app_shell/mainviewmodel.h"
 #include "core/Contants.h"
+#include "src/viewer_3d/Model/VolumePipeline.h"
+#include "src/viewer_3d/View/Viewer3DWidget.h"
 #include "src/viewer_3d/inc/IViewer3D.h"
 #include "src/viewer_3d/inc/Types.h"
-#include "src/viewer_3d/src/Viewer3DWidget.h"
-#include "src/viewer_3d/src/VolumePipeline.h"
 #include <iostream>
 #include <qapplication.h>
 

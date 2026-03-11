@@ -17,9 +17,9 @@ void MainViewModel::requestBlendModeChange(Viewer3D::BlendMode mode)
     m_viewer3DVM->requestBlendModeChange(mode);
 }
 
-MainViewModel::~MainViewModel()
+void MainViewModel::setRangeStart(int val)
 {
-    // delete m_dicomLoader;
+    m_viewer3DVM->setRangeStart(val);
 }
 
 // Viewer3DViewModel *MainViewModel::getViewer3DViewModel() const
