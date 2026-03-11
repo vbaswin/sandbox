@@ -113,10 +113,10 @@ void MainWindow::setupViews()
 
     // verSplitter1->addWidget(m_viewer3D->asWidget());
     verSplitter1->addWidget(m_main3D->asWidget());
-    verSplitter1->addWidget(m_coronal->asWidget());
+    verSplitter1->addWidget(m_coronal->asWidget()); // 0
 
-    verSplitter2->addWidget(m_sagittal->asWidget());
-    verSplitter2->addWidget(m_axial->asWidget());
+    verSplitter2->addWidget(m_sagittal->asWidget()); // 1
+    verSplitter2->addWidget(m_axial->asWidget());    // 2
     this->setCentralWidget(horSplitter);
 
     horSplitter->setSizes({10000, 10000});

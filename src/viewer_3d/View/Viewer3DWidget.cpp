@@ -1,6 +1,7 @@
 #include "src/viewer_3d/View/viewer3dwidget.h"
 #include <QDebug>
 #include <QVBoxLayout>
+#include "src/viewer_3d/View/Interactions/ClippingPlaneInteractorStyle.h"
 #include "vtkGenericOpenGLRenderWindow.h"
 #include "vtkPlane.h"
 #include "vtkRenderer.h"
@@ -51,9 +52,16 @@ void Viewer3DWidget::setupVtk()
 
     m_camera = m_renderer->GetActiveCamera();
     vtkSmartPointer<vtkPlane> clipPlane = vtkSmartPointer<vtkPlane>::New();
+    vtkSmartPointer<Viewer3D::Interactions::ClippingPlaneInteractorStyle> customStyle
+        = vtkSmartPointer<Viewer3D::Interactions::ClippingPlaneInteractorStyle>::New();
+    vtkSmartPointer<vtkInteractorStyleTrackballCamera> trackballStyle
+        = vtkSmartPointer<vtkInteractorStyleTrackballCamera>::New();
+
+    double stepSize = 2.0;
     switch (m_orient) {
     case Viewer3D::viewOrientation::Main3D:
         m_camera->SetParallelProjection(0);
+        m_renderWindow->GetInteractor()->SetInteractorStyle(trackballStyle);
         break;
     case Viewer3D::viewOrientation::Axial:
         m_camera->SetPosition(0, 0, 1);
@@ -66,6 +74,8 @@ void Viewer3DWidget::setupVtk()
         clipPlane->SetNormal(0, 0, 1);
         m_mapper->AddClippingPlane(clipPlane);
         m_camera->SetParallelProjection(1);
+        customStyle->SetClippingPlane(clipPlane, 2, stepSize);
+        m_renderWindow->GetInteractor()->SetInteractorStyle(customStyle);
         break;
     case Viewer3D::viewOrientation::Sagittal:
         m_camera->SetPosition(1, 0, 0);
@@ -76,6 +86,8 @@ void Viewer3DWidget::setupVtk()
         clipPlane->SetNormal(1, 0, 0); // towards +x
         m_mapper->AddClippingPlane(clipPlane);
         m_camera->SetParallelProjection(1);
+        customStyle->SetClippingPlane(clipPlane, 0, stepSize);
+        m_renderWindow->GetInteractor()->SetInteractorStyle(customStyle);
         break;
     case Viewer3D::viewOrientation::Coronal:
         m_camera->SetPosition(0, 1, 0);
@@ -86,6 +98,8 @@ void Viewer3DWidget::setupVtk()
         clipPlane->SetNormal(0, 1, 0);
         m_mapper->AddClippingPlane(clipPlane);
         m_camera->SetParallelProjection(1);
+        customStyle->SetClippingPlane(clipPlane, 1, stepSize);
+        m_renderWindow->GetInteractor()->SetInteractorStyle(customStyle);
         break;
     default:
         break;
