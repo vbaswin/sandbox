@@ -4,6 +4,7 @@ QWidget {
 #medicalSlice {
     background-color: #000000;
 }
+QLabel { color: white; }
 QToolBar {
     background-color: #070F2B;
     border: none;

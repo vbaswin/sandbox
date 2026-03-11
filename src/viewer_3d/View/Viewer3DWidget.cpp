@@ -86,6 +86,7 @@ void Viewer3DWidget::setupVtk()
         break;
     case Viewer3D::viewOrientation::Sagittal:
         m_camera->SetPosition(1, 0, 0);
+        // m_camera->SetFocalPoint(0, 0, 0);
         m_camera->SetFocalPoint(0, 0, 0);
         m_camera->SetViewUp(0, 0, 1);
 
