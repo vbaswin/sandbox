@@ -50,6 +50,10 @@ void Viewer3DWidget::setupVtk()
 
     m_vtkWidget->SetRenderWindow(m_renderWindow);
 
+    // 0 sagittal, 1 coronal, 2 axial
+    // std::array<double, 3> spacing = m_viewModel->getSpacing();
+    std::array<double, 3> spacing{0.1, 0.1, 0.1};
+
     m_camera = m_renderer->GetActiveCamera();
     vtkSmartPointer<vtkPlane> clipPlane = vtkSmartPointer<vtkPlane>::New();
     vtkSmartPointer<Viewer3D::Interactions::ClippingPlaneInteractorStyle> customStyle
@@ -74,7 +78,7 @@ void Viewer3DWidget::setupVtk()
         clipPlane->SetNormal(0, 0, 1);
         m_mapper->AddClippingPlane(clipPlane);
         m_camera->SetParallelProjection(1);
-        customStyle->SetClippingPlane(clipPlane, 2, stepSize);
+        customStyle->SetClippingPlane(clipPlane, Viewer3D::viewOrientation::Axial, spacing[2]);
         m_renderWindow->GetInteractor()->SetInteractorStyle(customStyle);
         break;
     case Viewer3D::viewOrientation::Sagittal:
@@ -86,7 +90,7 @@ void Viewer3DWidget::setupVtk()
         clipPlane->SetNormal(1, 0, 0); // towards +x
         m_mapper->AddClippingPlane(clipPlane);
         m_camera->SetParallelProjection(1);
-        customStyle->SetClippingPlane(clipPlane, 0, stepSize);
+        customStyle->SetClippingPlane(clipPlane, Viewer3D::viewOrientation::Sagittal, spacing[0]);
         m_renderWindow->GetInteractor()->SetInteractorStyle(customStyle);
         break;
     case Viewer3D::viewOrientation::Coronal:
@@ -98,7 +102,7 @@ void Viewer3DWidget::setupVtk()
         clipPlane->SetNormal(0, 1, 0);
         m_mapper->AddClippingPlane(clipPlane);
         m_camera->SetParallelProjection(1);
-        customStyle->SetClippingPlane(clipPlane, 1, stepSize);
+        customStyle->SetClippingPlane(clipPlane, Viewer3D::viewOrientation::Coronal, spacing[1]);
         m_renderWindow->GetInteractor()->SetInteractorStyle(customStyle);
         break;
     default:

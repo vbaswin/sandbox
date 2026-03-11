@@ -1,4 +1,5 @@
 #include "src/viewer_3d/ViewModel/viewer3dviewmodel.h"
+#include <QDebug>
 
 Viewer3DViewModel::Viewer3DViewModel(std::shared_ptr<VolumePipeline> pipeline, QObject *parent)
     : QObject{parent}
@@ -20,6 +21,19 @@ void Viewer3DViewModel::loadVolumeData(vtkSmartPointer<vtkImageData> imageData,
 void Viewer3DViewModel::requestBlendModeChange(Viewer3D::BlendMode mode)
 {
     emit blendModeChanged(mode);
+}
+
+std::array<double, 3> Viewer3DViewModel::getSpacing()
+{
+    double spacing[3];
+    getImageData()->GetSpacing(spacing);
+    m_spacing[0] = spacing[0];
+    m_spacing[1] = spacing[1];
+    m_spacing[2] = spacing[2];
+
+    qDebug() << "Spacing: " << m_spacing[0] << " " << m_spacing[1] << " " << m_spacing[2] << " ";
+
+    return m_spacing;
 }
 
 void Viewer3DViewModel::setRangeStart(int val)

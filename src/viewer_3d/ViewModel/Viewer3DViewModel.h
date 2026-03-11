@@ -4,6 +4,7 @@
 #include "src/viewer_3d/Model/volumepipeline.h"
 #include "src/viewer_3d/inc/IViewer3DViewModel.h"
 #include "src/viewer_3d/inc/Types.h"
+#include <array>
 
 class Viewer3DViewModel : public QObject, public Viewer3D::Interfaces::IViewer3DViewModel
 {
@@ -19,6 +20,7 @@ public:
     void setOrientation(Viewer3D::viewOrientation);
     Viewer3D::viewOrientation getorientation();
     void requestBlendModeChange(Viewer3D::BlendMode mode);
+    std::array<double, 3> getSpacing();
 signals:
     void dataPropertyReady();
     void blendModeChanged(Viewer3D::BlendMode mode);
@@ -28,4 +30,5 @@ public slots:
 private:
     std::shared_ptr<VolumePipeline> m_pipeline;
     Viewer3D::viewOrientation m_orient;
+    std::array<double, 3> m_spacing;
 };
