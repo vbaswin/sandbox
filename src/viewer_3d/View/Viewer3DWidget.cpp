@@ -24,6 +24,10 @@ Viewer3DWidget::Viewer3DWidget(std::shared_ptr<Viewer3DViewModel> viewModel,
             &Viewer3DViewModel::blendModeChanged,
             this,
             &Viewer3DWidget::onBlendModeChanged);
+    connect(m_viewModel.get(),
+            &Viewer3DViewModel::renderRequested,
+            this,
+            &Viewer3DWidget::onRenderRequested);
 }
 
 void Viewer3DWidget::setupUI()
@@ -129,6 +133,13 @@ void Viewer3DWidget::setBlendMode(Viewer3D::BlendMode mode)
 void Viewer3DWidget::onBlendModeChanged(Viewer3D::BlendMode mode)
 {
     setBlendMode(mode);
+}
+
+void Viewer3DWidget::onRenderRequested()
+{
+    if (m_renderWindow) {
+        m_renderWindow->Render();
+    }
 }
 
 void Viewer3DWidget::onDataPropertyReady()

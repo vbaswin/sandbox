@@ -50,6 +50,7 @@ void VolumePipeline::setRangeStart(int start)
     m_rangeStart = start;
     setupTransferFunctions();
     qDebug() << start;
+    emit propertyChanged();
 }
 
 void VolumePipeline::setRange(std::pair<double, double> range)
@@ -65,7 +66,7 @@ void VolumePipeline::setupTransferFunctions()
 
     for (const auto &point : Viewer3D::preset) {
         double shiftedHU = point.hu + m_rangeStart;
-        qDebug() << shiftedHU << " : " << point.hu;
+        // qDebug() << shiftedHU << " : " << point.hu;
 
         m_opacityPiecewiseFunction->AddPoint(shiftedHU, point.opacity);
         m_colorTransferFunction->AddRGBPoint(shiftedHU,

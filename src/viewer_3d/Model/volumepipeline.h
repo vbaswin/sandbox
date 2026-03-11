@@ -36,4 +36,5 @@ private:
     std::pair<double, double> m_range;
 signals:
     void dataPropertyReady();
+    void propertyChanged();
 };

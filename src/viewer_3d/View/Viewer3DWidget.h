@@ -19,6 +19,7 @@ public:
 public slots:
     void onDataPropertyReady();
     void onBlendModeChanged(Viewer3D::BlendMode mode);
+    void onRenderRequested();
 
     [[nodiscard]] QWidget *asWidget() override { return this; };
 

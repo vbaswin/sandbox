@@ -24,6 +24,7 @@ public:
 signals:
     void dataPropertyReady();
     void blendModeChanged(Viewer3D::BlendMode mode);
+    void renderRequested();
 public slots:
     void setRangeStart(int val);
 

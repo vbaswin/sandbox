@@ -8,6 +8,9 @@ Viewer3DViewModel::Viewer3DViewModel(std::shared_ptr<VolumePipeline> pipeline, Q
     connect(m_pipeline.get(), &VolumePipeline::dataPropertyReady, this, [=]() {
         emit dataPropertyReady();
     });
+    connect(m_pipeline.get(), &VolumePipeline::propertyChanged, this, [this]() {
+        emit renderRequested();
+    });
 }
 void Viewer3DViewModel::loadVolumeData(vtkSmartPointer<vtkImageData> imageData,
                                        std::pair<double, double> scalarRange)
@@ -32,6 +35,7 @@ void Viewer3DViewModel::setRangeStart(int val)
 {
     m_pipeline->setRangeStart(val);
     // emit reRender();
+    qDebug() << "range: ";
 }
 
 void Viewer3DViewModel::setOrientation(Viewer3D::viewOrientation orient)
