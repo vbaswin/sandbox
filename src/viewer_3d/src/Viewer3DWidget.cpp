@@ -1,4 +1,5 @@
 #include "viewer3dwidget.h"
+#include <QDebug>
 #include <QVBoxLayout>
 #include "vtkGenericOpenGLRenderWindow.h"
 #include "vtkPlane.h"
