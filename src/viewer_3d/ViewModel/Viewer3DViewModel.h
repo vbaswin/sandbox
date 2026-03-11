@@ -1,9 +1,9 @@
 #pragma once
 
 #include <QObject>
+#include "src/viewer_3d/Model/volumepipeline.h"
 #include "src/viewer_3d/inc/IViewer3DViewModel.h"
 #include "src/viewer_3d/inc/Types.h"
-#include "volumepipeline.h"
 
 class Viewer3DViewModel : public QObject, public Viewer3D::Interfaces::IViewer3DViewModel
 {

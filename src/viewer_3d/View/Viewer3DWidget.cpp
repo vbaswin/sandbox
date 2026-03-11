@@ -1,4 +1,4 @@
-#include "viewer3dwidget.h"
+#include "src/viewer_3d/View/viewer3dwidget.h"
 #include <QDebug>
 #include <QVBoxLayout>
 #include "vtkGenericOpenGLRenderWindow.h"
@@ -65,6 +65,7 @@ void Viewer3DWidget::setupVtk()
         // normal towards +z to ut away the foreground
         clipPlane->SetNormal(0, 0, 1);
         m_mapper->AddClippingPlane(clipPlane);
+        m_camera->SetParallelProjection(1);
         break;
     case Viewer3D::viewOrientation::Sagittal:
         m_camera->SetPosition(1, 0, 0);
@@ -74,6 +75,7 @@ void Viewer3DWidget::setupVtk()
         clipPlane->SetOrigin(0, 0, 0);
         clipPlane->SetNormal(1, 0, 0); // towards +x
         m_mapper->AddClippingPlane(clipPlane);
+        m_camera->SetParallelProjection(1);
         break;
     case Viewer3D::viewOrientation::Coronal:
         m_camera->SetPosition(0, 1, 0);
@@ -83,6 +85,7 @@ void Viewer3DWidget::setupVtk()
         clipPlane->SetOrigin(0, 0, 0);
         clipPlane->SetNormal(0, 1, 0);
         m_mapper->AddClippingPlane(clipPlane);
+        m_camera->SetParallelProjection(1);
         break;
     default:
         break;

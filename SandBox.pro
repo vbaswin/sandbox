@@ -32,15 +32,15 @@ HEADERS += \
     src/viewer_3d/inc/m3d_factory.h \
 
 HEADERS += \
-    src/viewer_3d/src/VolumePipeline.h \
-    src/viewer_3d/src/Viewer3DViewModel.h \
-    src/viewer_3d/src/Viewer3DWidget.h
+    src/viewer_3d/Model/VolumePipeline.h \
+    src/viewer_3d/ViewModel/Viewer3DViewModel.h \
+    src/viewer_3d/View/Viewer3DWidget.h
 
 SOURCES += \
-    src/viewer_3d/src/VolumePipeline.cpp \
-    src/viewer_3d/src/Viewer3DViewModel.cpp \
-    src/viewer_3d/src/Viewer3DWidget.cpp \
-    src/viewer_3d/src/m3d_factory.cpp
+    src/viewer_3d/Model/VolumePipeline.cpp \
+    src/viewer_3d/ViewModel/Viewer3DViewModel.cpp \
+    src/viewer_3d/View/Viewer3DWidget.cpp \
+    src/viewer_3d/m3d_factory.cpp
 
 # -----------------
 # Extracted Feature: App Shell (Window & Integration)

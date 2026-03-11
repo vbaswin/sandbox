@@ -2,9 +2,9 @@
 
 #include <QVTKOpenGLNativeWidget.h>
 #include <QWidget>
+#include "src/viewer_3d/ViewModel/viewer3dviewmodel.h"
 #include "src/viewer_3d/inc/IModel.h"
 #include "src/viewer_3d/inc/IViewer3D.h"
-#include "viewer3dviewmodel.h"
 #include "vtkCamera.h"
 
 class Viewer3DWidget : public QWidget, public Viewer3D::Interfaces::IViewer3D

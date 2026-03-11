@@ -1,4 +1,4 @@
-#include "viewer3dviewmodel.h"
+#include "src/viewer_3d/ViewModel/viewer3dviewmodel.h"
 
 Viewer3DViewModel::Viewer3DViewModel(std::shared_ptr<VolumePipeline> pipeline, QObject *parent)
     : QObject{parent}
