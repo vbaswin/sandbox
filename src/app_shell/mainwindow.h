@@ -20,6 +20,8 @@ public:
                         Viewer3D::Interfaces::IViewer3D *coronal,
                         Viewer3D::Interfaces::IViewer3D *axial,
                         QWidget *parent = nullptr);
+signals:
+    void blendModeChanged(Viewer3D::BlendMode mode);
 
 private:
     void setupUI();

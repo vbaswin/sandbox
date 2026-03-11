@@ -92,7 +92,7 @@ void MainWindow::setupUI()
     connect(modeGroup, &QActionGroup::triggered, this, [this](QAction *action) {
         if (m_mainVM) {
             Viewer3D::BlendMode selectedMode = action->data().value<Viewer3D::BlendMode>();
-            m_mainVM->requestBlendModeChangedFn(selectedMode);
+            emit blendModeChanged(selectedMode);
         }
     });
 }

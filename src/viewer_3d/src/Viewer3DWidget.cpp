@@ -18,7 +18,7 @@ Viewer3DWidget::Viewer3DWidget(std::shared_ptr<Viewer3DViewModel> viewModel,
             this,
             &Viewer3DWidget::onDataPropertyReady);
     connect(m_viewModel.get(),
-            &Viewer3DViewModel::mainRequestBlendModeChange,
+            &Viewer3DViewModel::blendModeChanged,
             this,
             &Viewer3DWidget::onBlendModeChanged);
 }
@@ -93,12 +93,15 @@ void Viewer3DWidget::setBlendMode(Viewer3D::BlendMode mode)
     switch (mode) {
     case Viewer3D::BlendMode::Composite:
         m_mapper->SetBlendModeToComposite();
+        m_renderWindow->Render();
         break;
     case Viewer3D::BlendMode::Additive:
         m_mapper->SetBlendModeToAdditive();
+        m_renderWindow->Render();
         break;
     case Viewer3D::BlendMode::MaximumIntensity:
         m_mapper->SetBlendModeToMaximumIntensity();
+        m_renderWindow->Render();
         break;
     }
 }

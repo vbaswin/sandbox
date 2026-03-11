@@ -16,9 +16,7 @@ public:
     //     Viewer3DViewModel *getViewer3DViewModel() const;
     void executeInitialAppLoad(const char *path);
     //     void sliderChanged(int val);
-    void requestBlendModeChangedFn(Viewer3D::BlendMode);
-signals:
-    void mainRequestBlendModeChanged(Viewer3D::BlendMode);
+    void requestBlendModeChange(Viewer3D::BlendMode);
 
 private:
     std::shared_ptr<DicomLoader> m_dicomLoader;

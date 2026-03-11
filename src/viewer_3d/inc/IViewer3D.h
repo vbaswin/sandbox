@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include "Types.h"
 
 namespace Viewer3D::Interfaces {
 
@@ -10,5 +11,6 @@ public:
     // [[nodiscard]] explicit IViewer3D();
     virtual ~IViewer3D() = default; // polymorphic destruction
     [[nodiscard]] virtual QWidget *asWidget() = 0;
+
 };
 } // namespace Viewer3D::Interfaces

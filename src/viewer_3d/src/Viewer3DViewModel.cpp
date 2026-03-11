@@ -17,9 +17,9 @@ void Viewer3DViewModel::loadVolumeData(vtkSmartPointer<vtkImageData> imageData,
     m_pipeline->SetInputData(imageData, scalarRange);
 }
 
-void Viewer3DViewModel::blendModeChanged(Viewer3D::BlendMode mode)
+void Viewer3DViewModel::requestBlendModeChange(Viewer3D::BlendMode mode)
 {
-    emit requestBlendModeChange(mode);
+    emit blendModeChanged(mode);
 }
 
 void Viewer3DViewModel::setRangeStart(int val)
