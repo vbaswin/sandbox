@@ -14,6 +14,7 @@ INCLUDEPATH += $$PWD/src
 # -----------------
 HEADERS += src/core/Constants.h \
     src/viewer_3d/View/Interactions/ClippingPlaneInteractorStyle.h \
+    src/viewer_3d/View/Interactions/SliceScrollObserver.h \
     src/viewer_3d/inc/IViewer3D.h \
     src/viewer_3d/inc/IViewer3DViewModel.h
 
