@@ -7,7 +7,7 @@
 #include "vtkRenderWindowInteractor.h"
 #include "vtkSmartPointer.h"
 
-namespace Viewer3D::Interactions {
+namespace Viewer3D::Interaction {
 
 class ClippingPlaneInteractorStyle : public vtkInteractorStyleImage
 {
@@ -73,4 +73,4 @@ public:
 
 vtkStandardNewMacro(ClippingPlaneInteractorStyle);
 
-} // namespace Viewer3D::Interactions
+} // namespace Viewer3D::Interaction
